@@ -1,5 +1,5 @@
 # Architecture-Logicielle
 
-## Quilliec Amaury
-## Etique Kevin
-## Koler Maxime
+## Quilliec Amaury - Aliec-AQ
+## Etique Kevin - Ethique Kevin
+## Koler Maxime - YxallaxY
