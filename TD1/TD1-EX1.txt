@@ -1,0 +1,10 @@
+Models et associations :
+ - box : belongsToMany avec prestation avec box2presta (pivot) et belongsTo avec user
+ - prestation : belongsToMany avec box avec box2presta (pivot) et belongsTo avec categorie
+ - user : hasMany avec box
+ - categorie : hasMany avec prestation
+
+Type des clés primaires des tables :
+ - box : varchar(128) / UUID
+ - catégorie : int(11) / CHIFFRE
+ - prestation : varchar(128)  /UUID
