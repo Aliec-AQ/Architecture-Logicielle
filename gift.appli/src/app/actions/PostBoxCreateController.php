@@ -5,8 +5,7 @@ class PostBoxCreateController
 {
     public function __invoke($request, $response, $args)
     {
-        $basePath = "/Architecture_Logicielle/Architecture-Logicielle/gift.appli/public";
-
+        $postData = $request->getParsedBody();
         $html = <<<HTML
         <h1>Box Created</h1>
         <p>Form data:</p>

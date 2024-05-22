@@ -7,17 +7,23 @@ class GetPrestationController
     {
         $id = $request->getQueryParams()['id'] ?? null;
 
+
         if ($id === null) {
-            $html = <<<HTML
-            <h1>Error</h1>
-            <p>ID manquant dans l'url : /prestations?id=xxx</p>
-            HTML;
-        } else {
-            $html = <<<HTML
-            <h1>Prestation Details</h1>
-            <p>ID: {$id}</p>
-            HTML;
+            throw new \Slim\Exception\HttpBadRequestException($request, "Paramètre absent dans l'URL");
         }
+
+        $prestation = \gift\appli\models\Prestation::find($id);
+
+        if ($prestation === null) {
+            throw new \Slim\Exception\HttpNotFoundException($request, "Prestation non trouvée");
+        }
+
+        $html = <<<HTML
+            <h1>Prestation</h1>
+            <p>ID : {$prestation->id}</p>
+            <p>Libelle : {$prestation->libelle}</p>
+            <p>Description : {$prestation->description}</p>
+        HTML;
 
         $response->getBody()->write($html);
         return $response;

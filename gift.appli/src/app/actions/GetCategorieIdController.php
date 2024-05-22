@@ -6,26 +6,23 @@ class GetCategorieIdController
     public function __invoke($request, $response, $args)
     {
         $id = $args['id'];
-        $categories = [
-            ['id' => 1, 'name' => 'Category 1'],
-            ['id' => 2, 'name' => 'Category 2'],
-            ['id' => 3, 'name' => 'Category 3']
-        ];
 
-        $category = array_filter($categories, function($cat) use ($id) {
-            return $cat['id'] == $id;
-        });
-
-        if (empty($category)) {
-            $response->getBody()->write("Category not found");
-            return $response->withStatus(404);
+        if ($id === null) {
+            throw new \Slim\Exception\HttpBadRequestException($request, "Paramètre absent dans l'URL");
         }
 
-        $category = array_shift($category);
+        $category = \gift\appli\models\Categorie::find($id);
+
+        if ($category === null) {
+            throw new \Slim\Exception\HttpNotFoundException($request, "Catégorie non trouvée");
+        }
 
         $html = <<<HTML
         <h1>Category</h1>
-        <p>ID: {$category['id']}, Name: {$category['name']}</p>
+        <p>ID: {$category['id']}</p>
+        <p>Libelle: {$category['libelle']}</p>
+        <p>Description: {$category['description']}</p>
+        <a href="{$id}/prestations">Voir les prestations de la catégorie</a>
         HTML;
 
         $response->getBody()->write($html);

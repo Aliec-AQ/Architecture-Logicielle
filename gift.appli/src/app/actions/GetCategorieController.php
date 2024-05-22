@@ -5,21 +5,19 @@ class GetCategorieController
 {
     public function __invoke($request, $response, $args)
     {
-        $categories = [
-            ['id' => 1, 'name' => 'Category 1'],
-            ['id' => 2, 'name' => 'Category 2'],
-            ['id' => 3, 'name' => 'Category 3']
-        ];
+        $categories = \gift\appli\models\Categorie::all();
 
-        $basePath = "/Architecture_Logicielle/Architecture-Logicielle/gift.appli/public";
-
+        if($categories === null) {
+            throw new \Slim\Exception\HttpNotFoundException($request, "Aucune catégorie trouvée");
+        }
+    
         $html = <<<HTML
         <h1>Categories</h1>
         HTML;
         foreach ($categories as $category) {
-            $url = $basePath . '/categorie/' . $category['id'];
+            $url = 'categorie/' . $category['id'];
             $html .= <<<HTML
-            <p><a href="$url">ID: {$category['id']}, Name: {$category['name']}</a></p>
+            <p><a href="$url">ID: {$category['id']}, Libelle: {$category['libelle']}</a></p>
             HTML;
         }
 

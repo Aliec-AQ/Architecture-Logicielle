@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
-gift\appli\utils\Eloquent::init(__DIR__ . '/../../conf/gift.db.conf.ini.dist');
+gift\appli\app\utils\Eloquent::init(__DIR__ . '/../../conf/gift.db.conf.ini.dist');
 
 /*
 5. idem, en affichant en plus les prestations prévues dans la box (libellé, tarif, unité,

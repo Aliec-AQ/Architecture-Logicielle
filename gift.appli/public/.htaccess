@@ -2,7 +2,8 @@ RewriteEngine On
 #
 # RewriteBase indispensable sur webetu :
 
-#RewriteBase /www/canals5/phox
+# RewriteBase METTRE LE CHEMIN DEPUIS LA RACINE DU VIRTUALHOST 
+RewriteBase /Architecture_Logicielle/Architecture-Logicielle/gift.appli/public/
 
 
 #

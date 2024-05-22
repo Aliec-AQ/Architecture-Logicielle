@@ -9,9 +9,11 @@ return function( \Slim\App $app): \Slim\App {
     // route globale pour accéder rapidement aux différentes pages
     $app->get('/', gift\appli\app\actions\GetRootController::class);
 
-    $app->get('/categories', gift\appli\app\actions\CategorieController::class);
+    $app->get('/categories', gift\appli\app\actions\GetCategorieController::class);
 
     $app->get('/categorie/{id}', gift\appli\app\actions\GetCategorieIdController::class);
+
+    $app->get('/categorie/{id}/prestations', gift\appli\app\actions\GetPrestationsCategorieController::class);
 
     $app->get('/prestation', gift\appli\app\actions\GetPrestationController::class);
 
