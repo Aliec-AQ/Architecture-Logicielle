@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
-gift\appli\bd\BdManager::connect();
+gift\appli\utils\Eloquent::init(__DIR__ . '/../../conf/gift.db.conf.ini.dist');
 
 /*
 3. afficher la catégorie 3 (libellé) et la liste des prestations (libellé, tarif, unité) de cette

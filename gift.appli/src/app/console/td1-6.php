@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
-gift\appli\bd\BdManager::connect();
+gift\appli\utils\Eloquent::init(__DIR__ . '/../../conf/gift.db.conf.ini.dist');
 
 /*
 6. Créer une box et lui ajouter 3 prestations. L’identifiant de la box est un UUID.

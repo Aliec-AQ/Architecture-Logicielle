@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
-gift\appli\bd\BdManager::connect();
+gift\appli\utils\Eloquent::init(__DIR__ . '/../../conf/gift.db.conf.ini.dist');
 
 /*
 2. idem, mais en affichant de plus la catégorie de la prestation. On utilisera un
