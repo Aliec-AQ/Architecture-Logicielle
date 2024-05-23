@@ -9,11 +9,6 @@ class GetCategorieAction extends \gift\appli\app\actions\AbstractAction
     {
         $categories = \gift\appli\models\Categorie::all();
 
-        if($categories === null) {
-            throw new \Slim\Exception\HttpNotFoundException($request, "Aucune catégorie trouvée");
-        }
-
-
         $view = \Slim\Views\Twig::fromRequest($request);
         return $view->render($response, 'Categories.twig', ['categories' => $categories]);
     }

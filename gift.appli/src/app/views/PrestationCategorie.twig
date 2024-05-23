@@ -4,4 +4,5 @@
 {% for presta in prestations %}
 <p><a href="{{ url_for('prestation') ~ "?id=" ~ presta.id }}"> {{ presta.libelle }}</a></p>
 {% endfor %}
+<p><a href="{{ url_for('categorieById', {'id':id}) }}">retour à la catégorie</a></p>
 {% endblock %}

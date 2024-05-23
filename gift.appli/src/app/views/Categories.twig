@@ -2,8 +2,13 @@
 {% block content %}
 <body>
 <h1>Categories</h1>
+{% if categories is not null %}
 {% for cat in categories %}
 <p><a href="{{ url_for('categorieById', {'id':cat.id}) }}">ID: {{cat.id}}, Libelle: {{cat.libelle}}</a></p>
 {% endfor %}
+{% else %}
+<p>Aucune catégorie</p>
+{% endif %}
+<p><a href="{{ url_for('root') }}">retour au menu</a></p>
 </body>
 {% endblock %}

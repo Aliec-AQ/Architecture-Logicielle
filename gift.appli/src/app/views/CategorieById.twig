@@ -5,6 +5,7 @@
     <p>ID: {{id}}</p>
     <p>Libelle: {{libelle}}</p>
     <p>Description: {{description}}</p>
-    <a href="{{ url_for('prestationsCategorie', {'id':id}) }}">Voir les prestations de la catégorie</a>
+    <p><a href="{{ url_for('prestationsCategorie', {'id':id}) }}">Voir les prestations de la catégorie</a></p>
+    <p><a href="{{ url_for('categories') }}">Retour à la liste des catégories</a></p>
 </body>
 {% endblock %}
