@@ -1,12 +1,17 @@
 <?php
 namespace gift\appli\app\actions;
 
-class GetRootAction extends \gift\appli\app\actions\AbstractAction 
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use gift\appli\app\actions\AbstractAction;
+use Slim\Views\Twig;
+
+class GetRootAction extends AbstractAction 
 {
-    public function __invoke($request, $response, $args)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
 
-        $view = \Slim\Views\Twig::fromRequest($request);
+        $view = Twig::fromRequest($request);
         return $view->render($response, 'Root.twig');
     }
 }
