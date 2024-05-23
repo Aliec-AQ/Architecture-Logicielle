@@ -3,23 +3,31 @@ declare(strict_types=1);
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\App;
+use gift\appli\app\actions\GetRootAction;
+use gift\appli\app\actions\GetCategorieAction;
+use gift\appli\app\actions\GetCategorieIdAction;
+use gift\appli\app\actions\GetPrestationsCategorieAction;
+use gift\appli\app\actions\GetPrestationAction;
+use gift\appli\app\actions\GetBoxCreateAction;
+use gift\appli\app\actions\PostBoxCreateAction;
 
-return function( \Slim\App $app): \Slim\App {
+return function( App $app): App {
 
     // route globale pour accéder rapidement aux différentes pages
-    $app->get('/', gift\appli\app\actions\GetRootAction::class)->setName('root');
+    $app->get('/', GetRootAction::class)->setName('root');
 
-    $app->get('/categories[/]', gift\appli\app\actions\GetCategorieAction::class)->setName('categories');
+    $app->get('/categories[/]', GetCategorieAction::class)->setName('categories');
 
-    $app->get('/categorie/{id}[/]', gift\appli\app\actions\GetCategorieIdAction::class)->setName('categorieById');
+    $app->get('/categorie/{id}[/]', GetCategorieIdAction::class)->setName('categorieById');
 
-    $app->get('/categorie/{id}/prestations[/]', gift\appli\app\actions\GetPrestationsCategorieAction::class)->setName('prestationsCategorie');
+    $app->get('/categorie/{id}/prestations[/]', GetPrestationsCategorieAction::class)->setName('prestationsCategorie');
 
-    $app->get('/prestation[/]', gift\appli\app\actions\GetPrestationAction::class)->setName('prestation');
+    $app->get('/prestation[/]', GetPrestationAction::class)->setName('prestation');
 
-    $app->get('/box/create[/]', gift\appli\app\actions\GetBoxCreateAction::class)->setName('boxCreate');
+    $app->get('/box/create[/]', GetBoxCreateAction::class)->setName('boxCreate');
 
-    $app->post('/box/create[/]', gift\appli\app\actions\PostBoxCreateAction::class)->setName('boxCreatePost');
+    $app->post('/box/create[/]', PostBoxCreateAction::class)->setName('boxCreatePost');
 
     return $app;
 };

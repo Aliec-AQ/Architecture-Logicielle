@@ -1,23 +1,31 @@
 <?php
 namespace gift\appli\app\actions;
 
-class GetPrestationsCategorieAction extends \gift\appli\app\actions\AbstractAction 
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use gift\appli\app\actions\AbstractAction;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpNotFoundException;
+use Slim\Views\Twig;
+use gift\appli\models\Categorie;
+
+class GetPrestationsCategorieAction extends AbstractAction 
 {
-    public function __invoke($request, $response, $args)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $id = $args['id'];
 
-        if ($id === null) {
-            throw new \Slim\Exception\HttpBadRequestException($request, "Paramètre absent dans l'URL");
+        if (is_null($id)) {
+            throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
         }
 
-        $prestations = \gift\appli\models\Categorie::find($id)->prestations;
-
-        if ($prestations === null) {
-            throw new \Slim\Exception\HttpNotFoundException($request, "Aucune prestation trouvée");
+        try {
+            $prestations = Categorie::findOrFail($id)->prestations;
+        } catch (\Exception $e) {
+            throw new HttpNotFoundException($request, "Catégorie non trouvée");
         }
 
-        $view = \Slim\Views\Twig::fromRequest($request);
+        $view = Twig::fromRequest($request);
         return $view->render($response, 'PrestationCategorie.twig', ['prestations' => $prestations, 'id' => $id]);
     }
 }
