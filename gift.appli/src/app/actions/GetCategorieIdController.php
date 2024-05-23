@@ -1,7 +1,7 @@
 <?php
 namespace gift\appli\app\actions;
 
-class GetCategorieIdController
+class GetCategorieIdController extends AbstractAction 
 {
     public function __invoke($request, $response, $args)
     {

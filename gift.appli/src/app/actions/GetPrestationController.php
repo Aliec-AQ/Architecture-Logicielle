@@ -1,7 +1,7 @@
 <?php
 namespace gift\appli\app\actions;
 
-class GetPrestationController
+class GetPrestationController extends AbstractAction 
 {
     public function __invoke($request, $response, $args)
     {
