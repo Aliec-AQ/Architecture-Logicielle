@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GiftBox</title>
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/main.css">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('root') }}"><h1 id="Title">Accueil</h1></a>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        &copy; GiftBox - Kevin Etique - Amaury Quilliec - L'autre
+    </footer>
+</body>
+</html>

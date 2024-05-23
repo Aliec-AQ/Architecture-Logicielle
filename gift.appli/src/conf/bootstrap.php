@@ -15,7 +15,16 @@ $app->addErrorMiddleware(true, false, false);
 $app->setBasePath($basePath);
 
 /* Config Twig */
+
 $twig = \Slim\Views\Twig::create(__DIR__ . '/../app/views', ['cache' => false]);
+
+/* Ajout Base_url pour pouvoir pointer sur le css */
+$twigEnvironment = $twig->getEnvironment();
+$twigEnvironment->addFunction(new \Twig\TwigFunction('base_url', function () use ($app) {
+    $uri = $app->getRouteCollector()->getBasePath();
+    return $uri;
+}));
+
 $app->add(\Slim\Views\TwigMiddleware::create($app, $twig)); 
 
 $app=(require_once __DIR__ . '/routes.php')($app);
