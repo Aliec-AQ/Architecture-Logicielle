@@ -1,10 +1,10 @@
 {% extends 'index.twig' %}
 {% block content %}
-<h1>Box Created</h1>
-        <p>Form data:</p>
+<h1>Box créée</h1>
+        <p>Information de la Box</p>
         <ul>
-            <li>Name: {{ postData.name }}</li>
+            <li>Nom: {{ postData.name }}</li>
             <li>Description: {{ postData.   description }}</li>
         </ul>
-        <p><a href="{{ url_for('root') }}">retour au menu</a></p>
+        <p><a href="{{ url_for('root') }}">Retour au menu</a></p>
 {% endblock %}

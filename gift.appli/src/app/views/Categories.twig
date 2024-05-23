@@ -3,12 +3,18 @@
 <body>
 <h1>Categories</h1>
 {% if categories is not null %}
+<div class="cardContainer">
 {% for cat in categories %}
-<p><a href="{{ url_for('categorieById', {'id':cat.id}) }}">ID: {{cat.id}}, Libelle: {{cat.libelle}}</a></p>
+
+<a class="card" href="{{ url_for('categorieById', {'id':cat.id}) }}">
+        <h2>{{cat.libelle}}</h2>
+        <p>ID: {{cat.id}}</p>
+</a>
 {% endfor %}
+</div>
 {% else %}
 <p>Aucune catégorie</p>
 {% endif %}
-<p><a href="{{ url_for('root') }}">retour au menu</a></p>
+<p><a class="bouton" href="{{ url_for('root') }}">Retour au menu</a></p>
 </body>
 {% endblock %}

@@ -1,8 +1,11 @@
 {% extends 'index.twig' %}
 {% block content %}
+    <div class="card">
 <h1>Prestation</h1>
 <p>ID : {{ prestation.id }}</p>
 <p>Libelle : {{ prestation.libelle }}</p>
 <p>Description : {{ prestation.description }}</p>
-<a href="{{ url_for('root')}}">retour au menu</a>
+    </div>
+    <br>
+    <a class="bouton" href="{{ url_for('root')}}">Retour au menu</a>
 {% endblock %}
