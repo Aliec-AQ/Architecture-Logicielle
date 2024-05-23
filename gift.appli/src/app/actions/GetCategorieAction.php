@@ -1,6 +1,8 @@
 <?php
 namespace gift\appli\app\actions;
 
+use function Sodium\add;
+
 class GetCategorieAction extends \gift\appli\app\actions\AbstractAction
 {
     public function __invoke($request, $response, $args)
@@ -10,18 +12,9 @@ class GetCategorieAction extends \gift\appli\app\actions\AbstractAction
         if($categories === null) {
             throw new \Slim\Exception\HttpNotFoundException($request, "Aucune catégorie trouvée");
         }
-    
-        $html = <<<HTML
-        <h1>Categories</h1>
-        HTML;
-        foreach ($categories as $category) {
-            $url = 'categorie/' . $category['id'];
-            $html .= <<<HTML
-            <p><a href="$url">ID: {$category['id']}, Libelle: {$category['libelle']}</a></p>
-            HTML;
-        }
 
-        $response->getBody()->write($html);
-        return $response;
+
+        $view = \Slim\Views\Twig::fromRequest($request);
+        return $view->render($response, 'Categories.twig', ['categories' => $categories]);
     }
 }

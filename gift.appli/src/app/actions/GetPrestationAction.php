@@ -18,14 +18,9 @@ class GetPrestationAction extends \gift\appli\app\actions\AbstractAction
             throw new \Slim\Exception\HttpNotFoundException($request, "Prestation non trouvée");
         }
 
-        $html = <<<HTML
-            <h1>Prestation</h1>
-            <p>ID : {$prestation->id}</p>
-            <p>Libelle : {$prestation->libelle}</p>
-            <p>Description : {$prestation->description}</p>
-        HTML;
 
-        $response->getBody()->write($html);
-        return $response;
+
+        $view = \Slim\Views\Twig::fromRequest($request);
+        return $view->render($response, 'Prestation.twig', ['prestation' => $prestation]);
     }
 }

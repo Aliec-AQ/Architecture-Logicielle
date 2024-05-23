@@ -1,7 +1,10 @@
+{% extends 'index.twig' %}
+{% block content %}
 <body>
     <h1>Category</h1>
     <p>ID: {{id}}</p>
     <p>Libelle: {{libelle}}</p>
     <p>Description: {{description}}</p>
-    <a href="{{id}}/prestations">Voir les prestations de la catégorie</a>
+    <a href="{{ url_for('prestationsCategorie', {'id':id}) }}">Voir les prestations de la catégorie</a>
 </body>
+{% endblock %}

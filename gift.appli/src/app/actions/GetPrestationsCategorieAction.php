@@ -17,14 +17,7 @@ class GetPrestationsCategorieAction extends \gift\appli\app\actions\AbstractActi
             throw new \Slim\Exception\HttpNotFoundException($request, "Aucune prestation trouvée");
         }
 
-        $html = "<h1>Catégorie {$id} :</h1>";
-        foreach ($prestations as $prestation) {
-            $html .= <<<HTML
-            <p><a href="../../prestation?id={$prestation->id}">{$prestation->libelle}</a></p>
-            HTML;
-        }
-
-        $response->getBody()->write($html);
-        return $response;
+        $view = \Slim\Views\Twig::fromRequest($request);
+        return $view->render($response, 'PrestationCategorie.twig', ['prestations' => $prestations, 'id' => $id]);
     }
 }

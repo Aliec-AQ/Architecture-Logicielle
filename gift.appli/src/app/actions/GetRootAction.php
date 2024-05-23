@@ -12,7 +12,7 @@ class GetRootAction extends \gift\appli\app\actions\AbstractAction
         <p><a href="box/create">Create Box</a></p>
         HTML;
 
-        $response->getBody()->write($html);
-        return $response;
+        $view = \Slim\Views\Twig::fromRequest($request);
+        return $view->render($response, 'Root.twig');
     }
 }
