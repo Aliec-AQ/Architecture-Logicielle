@@ -1,7 +1,7 @@
 <?php
 namespace gift\appli\app\actions;
 
-class GetRootController extends AbstractAction 
+class GetRootAction extends \gift\appli\app\actions\AbstractAction 
 {
     public function __invoke($request, $response, $args)
     {

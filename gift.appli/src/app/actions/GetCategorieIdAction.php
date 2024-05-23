@@ -1,7 +1,7 @@
 <?php
 namespace gift\appli\app\actions;
 
-class GetCategorieIdController extends AbstractAction 
+class GetCategorieIdAction extends \gift\appli\app\actions\AbstractAction
 {
     public function __invoke($request, $response, $args)
     {
@@ -17,15 +17,7 @@ class GetCategorieIdController extends AbstractAction
             throw new \Slim\Exception\HttpNotFoundException($request, "Catégorie non trouvée");
         }
 
-        $html = <<<HTML
-        <h1>Category</h1>
-        <p>ID: {$category['id']}</p>
-        <p>Libelle: {$category['libelle']}</p>
-        <p>Description: {$category['description']}</p>
-        <a href="{$id}/prestations">Voir les prestations de la catégorie</a>
-        HTML;
-
-        $response->getBody()->write($html);
-        return $response;
+        $view = \Slim\Views\Twig::fromRequest($request);
+        return $view->render($response, 'CategorieById.twig', $category->toArray());
     }
 }

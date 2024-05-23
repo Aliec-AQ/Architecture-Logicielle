@@ -1,7 +1,7 @@
 <?php
 namespace gift\appli\app\actions;
 
-class PostBoxCreateController extends AbstractAction 
+class PostBoxCreateAction extends \gift\appli\app\actions\AbstractAction 
 {
     public function __invoke($request, $response, $args)
     {
