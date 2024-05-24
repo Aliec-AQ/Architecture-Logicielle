@@ -33,6 +33,8 @@ return function( App $app): App {
 
     $app->get('/box[/]', GetBoxCreateAction::class)->setName('box');
 
+    $app->get('/boxs[/]', GetBoxCreateAction::class)->setName('boxs');
+
 
     return $app;
 };
