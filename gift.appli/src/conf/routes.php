@@ -25,7 +25,7 @@ return function( App $app): App {
 
     $app->get('/prestation[/]', GetPrestationAction::class)->setName('prestation');
 
-    $app->get('/listePrestations[/]', GetPrestationAction::class)->setName('listePrestations');
+    $app->get('/listePrestations[/]', GetListePrestationsAction::class)->setName('listePrestations');
 
     $app->get('/box/create[/]', GetBoxCreateAction::class)->setName('boxCreate');
 
