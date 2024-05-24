@@ -6,7 +6,11 @@
 </head>
 <body>
     <nav>
-        <a href="{{ url_for('root') }}"><h1 id="Title">Accueil</h1></a>
+        <a href="{{ url_for('root') }}">Accueil</a>
+        <a href="{{ url_for('categories') }}">Categories</a>
+        <a href="{{ url_for('boxCreate') }}">Créer une box</a>
+        <a href="{{ url_for('listePrestations') }}">Prestations</a>
+        <a href="{{ url_for('boxsPredefinies') }}">Boxs prédéfinies</a>
     </nav>
 
     <main>
