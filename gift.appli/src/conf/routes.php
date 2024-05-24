@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use gift\appli\app\actions\GetBoxByIdAction;
+use gift\appli\app\actions\GetBoxsPredefinisAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -31,10 +33,9 @@ return function( App $app): App {
 
     $app->post('/box/create[/]', PostBoxCreateAction::class)->setName('boxCreatePost');
 
-    $app->get('/box[/]', GetBoxCreateAction::class)->setName('box');
+    $app->get('/box[/]', GetBoxByIdAction::class)->setName('box');
 
-    $app->get('/boxsPredefinis[/]', GetBoxCreateAction::class)->setName('boxsPredefinies');
-
+    $app->get('/boxsPredefinies[/]', GetBoxsPredefinisAction::class)->setName('boxsPredefinies');
 
     return $app;
 };
