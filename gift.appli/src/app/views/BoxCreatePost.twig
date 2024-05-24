@@ -1,9 +1,6 @@
 {% extends 'index.twig' %}
 {% block content %}
-    <div class="centerdiv">
 <h1>Box créée</h1>
-    </div>
-    <div class="centerdiv">
 <div class="card">
         <h2>Information de la Box</h2>
             <p>Nom: {{ postData.name }}</p>
@@ -11,8 +8,6 @@
     </div>
     </div>
 <br>
-    <div class="centerdiv">
 <a class="bouton" href="{{ url_for('root') }}">Retour au menu</a>
-    </div>
 
 {% endblock %}

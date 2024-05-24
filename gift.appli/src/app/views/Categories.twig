@@ -1,9 +1,7 @@
 {% extends 'index.twig' %}
 {% block content %}
 <body>
-<div class="centerdiv">
 <h1>Categories</h1>
-</div>
 {% if categories is not null %}
 <div class="cardContainer">
 {% for cat in categories %}
@@ -15,12 +13,8 @@
 {% endfor %}
 </div>
 {% else %}
-<div class="centerdiv">
 <h1>Aucune catégorie</h1>
-</div>
 {% endif %}
-<div class="centerdiv">
 <p><a class="bouton" href="{{ url_for('root') }}">Retour au menu</a></p>
-</div>
 </body>
 {% endblock %}
