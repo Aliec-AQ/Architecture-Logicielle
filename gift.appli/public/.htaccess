@@ -2,10 +2,6 @@ RewriteEngine On
 #
 # RewriteBase indispensable sur webetu :
 
-# RewriteBase METTRE LE CHEMIN DEPUIS LA RACINE DU VIRTUALHOST 
-RewriteBase /Architecture_Logicielle/Architecture-Logicielle/gift.appli/public/
-
-
 #
 # Pour interdire l'accès aux répertoires contenant du code
 #RewriteRule ^sql(/.*|)$ - [NC,F]
