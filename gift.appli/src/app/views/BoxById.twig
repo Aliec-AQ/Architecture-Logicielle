@@ -1,6 +1,5 @@
 {% extends 'index.twig' %}
 {% block content %}
-    <div class="centerdiv">
 <a class="card">
     <h2>{{box.libelle}}</h2>
     <h3>{{box.montant}} €</h3>
@@ -10,8 +9,5 @@
     <p>{{ box.message_kdo }}</p>
     {% endif %}
 </a>
-    </div>
-    <div class="centerdiv">
-        <p><a class="bouton" href="{{ url_for('boxsPredefinies') }}">Retour aux boxs prédéfinies</a></p>
-    </div>
+<a class="bouton" href="{{ url_for('boxsPredefinies') }}">Retour aux boxs prédéfinies</a>
 {% endblock %}

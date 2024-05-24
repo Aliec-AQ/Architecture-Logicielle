@@ -1,9 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    position: relative;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
@@ -24,8 +25,13 @@ nav a {
 }
 
 main {
+    flex: 1 0 auto;
     padding: 20px;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 footer {
@@ -33,23 +39,17 @@ footer {
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: absolute;
-    bottom: 0;
+    flex-shrink: 0;
+    position: relative;
     width: 100%;
-}
-
-.boxNeonContainer{
-    display: flex;
-    justify-content: center;
 }
 
 .boxNeon{
     background-color: #007bff;
     color: #fff;
     height: 200px;
-    width: 500px;
+    width: calc(22%);
     border-radius: 10px;
-    margin: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,7 +58,6 @@ footer {
 
 .textBoxNeon{
     font-size: 40px;
-    font-family: Arial, sans-serif;
     border: 2px solid transparent;
 }
 
@@ -68,13 +67,17 @@ footer {
     gap: 40px;
     width: 100%;
     margin-bottom: 40px;
+    justify-content: center;
+}
+
+.cardContainer .card{
+    width: calc(22%);
 }
 
 .card {
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 10px;
-    width: calc(22%);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     text-decoration: none;
@@ -83,6 +86,7 @@ footer {
 }
 
 .bouton{
+    display: inline-block;
     background-color: #000000;
     color: #fff;
     padding: 10px;
@@ -90,7 +94,7 @@ footer {
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-    margin:40px 0px 0px 0px ;
+    margin:10px ;
 }
 
 .card .bouton{
@@ -105,6 +109,13 @@ footer {
     margin: 0px;
 }
 
+.listImg{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
 /* Styles de base pour le formulaire */
 form {
     max-width: 400px;
@@ -113,7 +124,6 @@ form {
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
 }
 
 /* Styles pour les labels */
@@ -152,15 +162,6 @@ form button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-.centerdiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;}
-
 #rootTitre{
     font-size: 50px;
-    font-family: Arial, sans-serif;
 }
-
-
-

@@ -2,9 +2,7 @@
 {% block content %}
 
     {% if boxsPredefinies is not null %}
-        <div class="centerdiv">
-            <h1>Boxs prédéfinies</h1>
-        </div>
+        <h1>Boxs prédéfinies</h1>
         <div class="cardContainer">
             {% for box in boxsPredefinies %}
 
@@ -15,11 +13,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <div class="centerdiv">
-            <h1>Aucune box prédéfinies</h1>
-        </div>
+        <h1>Aucune box prédéfinies</h1>
     {% endif %}
-    <div class="centerdiv">
-        <p><a class="bouton" href="{{ url_for('root') }}">Retour au menu</a></p>
-    </div>
+<a class="bouton" href="{{ url_for('root') }}">Retour au menu</a>
 {% endblock %}

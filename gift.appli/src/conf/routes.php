@@ -10,6 +10,7 @@ use gift\appli\app\actions\GetRootAction;
 use gift\appli\app\actions\GetCategorieAction;
 use gift\appli\app\actions\GetCategorieIdAction;
 use gift\appli\app\actions\GetPrestationsCategorieAction;
+use gift\appli\app\actions\GetListePrestationsAction;
 use gift\appli\app\actions\GetPrestationAction;
 use gift\appli\app\actions\GetBoxCreateAction;
 use gift\appli\app\actions\PostBoxCreateAction;
@@ -27,7 +28,7 @@ return function( App $app): App {
 
     $app->get('/prestation[/]', GetPrestationAction::class)->setName('prestation');
 
-    $app->get('/prestations[/]', GetPrestationAction::class)->setName('prestations');
+    $app->get('/listePrestations[/]', GetListePrestationsAction::class)->setName('listePrestations');
 
     $app->get('/box/create[/]', GetBoxCreateAction::class)->setName('boxCreate');
 

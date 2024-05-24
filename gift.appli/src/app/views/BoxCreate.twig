@@ -1,8 +1,6 @@
 {% extends 'index.twig' %}
 {% block content %}
-<div class="centerdiv">
 <h1>Création d'une box</h1>
-</div>
 <form id="mon forme" action="" method="post">
     <label for="name">Nom</label>
     <input type="text" id="name" name="name">
@@ -10,8 +8,5 @@
     <input type="text" id="description" name="description">
     <button type="submit">Créer</button>
 </form>
-<br>
-<div class="centerdiv">
 <a class="bouton" href="{{ url_for('root') }}">Retour au menu</a>
-</div>
 {% endblock %}

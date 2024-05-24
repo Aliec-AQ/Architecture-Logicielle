@@ -1,15 +1,19 @@
 {% extends 'index.twig' %}
 {% block content %}
-<div class="centerdiv">
+
 <div class="card">
-<h1>Prestation</h1>
-<p>ID : {{ prestation.id }}</p>
-<p>Libelle : {{ prestation.libelle }}</p>
-<p>Description : {{ prestation.description }}</p>
+    <h2>{{ prestation.libelle }}</h2>
+    <img src="{{base_path()}}/img/{{prestation.img}}" alt="{{prestation.libelle}}">
+    <p>Description : {{ prestation.description }}</p>
+    {% if prestation.unite %}
+        <p>Unités: {{ prestation.unite }}</p>
+    {% endif %}
+    <p>Catégorie: {{ prestation.categorie.libelle }}</p>
+    <p>Prix: {{ prestation.tarif }} €</p>
 </div>
-</div>
-<br>
-<div class="centerdiv">
+
+
+
 <a class="bouton" href="{{ url_for('root')}}">Retour au menu</a>
-</div>
+
 {% endblock %}

@@ -2,11 +2,14 @@
 {% block content %}
 <h1>Liste des prestations pour la catégorie {{ id }} :</h1>
 <div class="cardContainer">
-{% for presta in prestations %}
-<a class="card" href="{{ url_for('prestation') ~ "?id=" ~ presta.id }}">
-    <h2> {{ presta.libelle }} </h2>
-</a>
-{% endfor %}
-</div>
+        {% for prestation in prestations %}
+            <a class="card" href="{{ url_for('prestation') ~ "?id=" ~ prestation.id }}">
+                <h3>{{ prestation.libelle }}</h3>
+                <p>Prix : {{ prestation.tarif }} €</p>
+                <p>Catégorie : {{ prestation.categorie.libelle }}</p>
+                <img src="{{ base_path() }}/img/{{ prestation.img }}" alt="{{ prestation.libelle }}" class="listImg">
+            </a>
+        {% endfor %}
+    </div>
 <a class="bouton" href="{{ url_for('categorieById', {'id':id}) }}">Retour à la catégorie</a>
 {% endblock %}
