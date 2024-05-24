@@ -8,6 +8,7 @@ use gift\appli\app\actions\GetRootAction;
 use gift\appli\app\actions\GetCategorieAction;
 use gift\appli\app\actions\GetCategorieIdAction;
 use gift\appli\app\actions\GetPrestationsCategorieAction;
+use gift\appli\app\actions\GetListePrestationsAction;
 use gift\appli\app\actions\GetPrestationAction;
 use gift\appli\app\actions\GetBoxCreateAction;
 use gift\appli\app\actions\PostBoxCreateAction;

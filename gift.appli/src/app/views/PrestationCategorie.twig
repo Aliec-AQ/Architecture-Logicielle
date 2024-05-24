@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Liste des prestations pour la catégorie {{ id }} :</h1>
 
-{% if prestations.length != 0 %}
+{% if prestations %}
     <div class="cardContainer">
         {% for prestation in prestations %}
             <a class="card" href="{{ url_for('prestation') ~ "?id=" ~ prestation.id }}">
