@@ -1,5 +1,6 @@
 {% extends 'index.twig' %}
 {% block content %}
+<div class="centerdiv">
 <div class="card">
     <h1>Categorie</h1>
     <p>ID: {{id}}</p>
@@ -7,6 +8,9 @@
     <p>Description: {{description}}</p>
     <a class="bouton" href="{{ url_for('prestationsCategorie', {'id':id}) }}">Voir les prestations de la catégorie</a>
 </div>
+</div>
     <br>
-    <a class="bouton" href="{{ url_for('categories') }}">Retour à la liste des catégories</a>
+    <div class="centerdiv">
+<a class="bouton" href="{{ url_for('categories') }}">Retour à la liste des catégories</a>
+</div>
 {% endblock %}

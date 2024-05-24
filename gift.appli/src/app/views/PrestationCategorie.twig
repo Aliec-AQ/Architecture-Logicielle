@@ -1,6 +1,6 @@
 {% extends 'index.twig' %}
 {% block content %}
-<h1>Catégorie {{ id }} :</h1>
+<h1>Liste des prestations pour la catégorie {{ id }} :</h1>
 <div class="cardContainer">
 {% for presta in prestations %}
 <a class="card" href="{{ url_for('prestation') ~ "?id=" ~ presta.id }}">
