@@ -7,21 +7,24 @@ use gift\appli\app\actions\AbstractAction;
 use Slim\Exception\HttpBadRequestException;
 
 use gift\appli\app\utils\CsrfService;
-use gift\appli\core\services\catalogue\CatalogueService;
-use gift\appli\core\services\catalogue\CatalogueServiceInterface;
-use gift\appli\core\services\catalogue\CatalogueServiceNotFoundException;
-use gift\appli\core\services\catalogue\CatalogueServiceArgumentException;
+use gift\appli\core\services\box\BoxService;
+use gift\appli\core\services\box\BoxServiceInterface;
+use gift\appli\core\services\box\BoxServiceNotFoundException;
 
-class PostCategorieCreateAction extends AbstractAction
+class PostAddPrestationBox extends AbstractAction
 {
-    private CatalogueServiceInterface $catalogueService;
+    private BoxServiceInterface $boxService;
     
     public function __construct(){
-        $this->catalogueService = new CatalogueService();
+        $this->boxService = new BoxService();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
+        if(!isset($_SESSION['giftBox_box_courante'])){
+            return $response->withStatus(302)->withHeader('Location', "/");
+        }
+
         $data = $request->getParsedBody();
 
         /* Récupération du token */
@@ -38,15 +41,14 @@ class PostCategorieCreateAction extends AbstractAction
         }
 
         /* Filtre des données */
-        $formData = [
-            'libelle' => htmlspecialchars($data['libelle'], ENT_QUOTES, 'UTF-8'),
-            'description' => htmlspecialchars($data['description'], ENT_QUOTES, 'UTF-8')
-        ];
+        $prestationId = htmlspecialchars($data['prestationId'], ENT_QUOTES, 'UTF-8');
+        $boxId = $_SESSION['giftBox_box_courante'];
+
 
         try {
-            $categorie = $this->catalogueService->createCategorie($formData);
-        } catch (CatalogueServiceNotFoundException $e) {
-            throw new HttpBadRequestException($request, 'Création de la catégorie échouée');
+            $this->boxService->addPrestationToBox($prestationId, $boxId, $data['quantite']);
+        } catch (BoxServiceNotFoundException $e) {
+            throw new HttpBadRequestException($request, 'Ajout de la prestation échouée');
         }
 
         $url = "/categories";

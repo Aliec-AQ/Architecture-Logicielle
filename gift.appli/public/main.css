@@ -179,3 +179,13 @@ form button[type="submit"]:hover {
 .texteReduit{
     width: 500px;
 }
+
+.numberForm {
+    width: 150px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}

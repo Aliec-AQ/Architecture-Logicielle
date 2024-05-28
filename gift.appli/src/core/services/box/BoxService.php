@@ -5,6 +5,7 @@ use gift\appli\core\services\box\BoxServiceInterface;
 use gift\appli\core\services\box\BoxServiceNotFoundException;
 
 use gift\appli\core\domain\entites\Box;
+use gift\appli\core\domain\entites\Prestation;
 
 /**
  * Service de gestion des boîtes.
@@ -54,6 +55,61 @@ class BoxService implements BoxServiceInterface {
             return $boxes->toArray();
         } catch (BoxServiceNotFoundException $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération des boxes prédéfinis depuis la base de données.");
+        }
+    }
+
+    public function createBox(array $data): string {
+
+        try {
+
+            $name = $data['name'];
+            $description = $data['description'];
+            $message_kdo = $data['kdo_message'] ?? '';
+
+            $filteredName = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+            $filteredDescription = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
+            $filteredMessageKdo = htmlspecialchars($message_kdo, ENT_QUOTES, 'UTF-8');
+
+            if ($name !== $filteredName || $description !== $filteredDescription || $message_kdo !== $filteredMessageKdo) {
+                echo "probleme";
+                throw new \Exception("Données de catégorie invalides.");
+            }
+
+            $box = new Box();
+            $box->token = $data['_csrf_token'];
+            $box->libelle = $data['name'];
+            $box->description = $data['description'];
+            $box->montant = 0;
+            $box->kdo = isset($data['kdo']) ? 1 : 0;
+            $box->statut = 1;
+            $box->message_kdo = $data['kdo_message'];
+            $box->save();
+            return $box->id;
+        }catch (\Exception){
+            throw new BoxServiceNotFoundException();
+        }
+
+    }
+
+    /**
+     * Ajoute une prestation à un coffret.
+     *
+     * @param string $prestationId L'identifiant de la prestation.
+     * @param string $boxId L'identifiant du coffret.
+     * @throws BoxServiceNotFoundException Si le coffret ou la prestation n'est pas trouvée dans la base de données.
+     */
+    public function addPrestationToBox(string $prestationId, string $boxId, int $quantite): void {
+        try{
+            if(is_null($prestationId) || is_null($boxId)){
+                throw new BoxServiceNotFoundException("Échec de l'ajout de la prestation au coffret.");
+            }
+
+            $box = Box::findOrFail($boxId);
+            $prestation = Prestation::findOrFail($prestationId);
+            $box->prestations()->attach($prestation, ['quantite' => $quantite]);
+            $box->save();
+        } catch (BoxServiceNotFoundException $e) {
+            throw new BoxServiceNotFoundException("Échec de l'ajout de la prestation au coffret.");
         }
     }
 }

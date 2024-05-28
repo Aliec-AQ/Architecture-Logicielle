@@ -11,6 +11,8 @@ use gift\appli\core\services\catalogue\CatalogueService;
 use gift\appli\core\services\catalogue\CatalogueServiceInterface;
 use gift\appli\core\services\catalogue\CatalogueServiceNotFoundException;
 
+use gift\appli\app\utils\CsrfService;
+
 class GetPrestationAction extends AbstractAction 
 {
     
@@ -26,7 +28,6 @@ class GetPrestationAction extends AbstractAction
     {
         $id = $request->getQueryParams()['id'] ?? null;
 
-
         if (is_null($id)) {
             throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
         }
@@ -37,8 +38,9 @@ class GetPrestationAction extends AbstractAction
             throw new HttpNotFoundException($request, "Prestation non trouvée");
         }
         
+        $csrf_token = CsrfService::generate();
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, ['prestation' => $prestation]);
+        return $view->render($response, $this->template, ['prestation' => $prestation, 'csrf_token' => $csrf_token]);
     }
 }
