@@ -1,5 +1,5 @@
 <?php
-namespace gift\appli\app\utils;
+namespace gift\appli\infrastructure;
 
 class Eloquent
 {

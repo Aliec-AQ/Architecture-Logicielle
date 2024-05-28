@@ -6,10 +6,22 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Views\Twig;
-use gift\appli\models\Prestation;
+
+use gift\appli\core\services\catalogue\CatalogueService;
+use gift\appli\core\services\catalogue\CatalogueServiceInterface;
+use gift\appli\core\services\catalogue\CatalogueServiceNotFoundException;
 
 class GetPrestationAction extends AbstractAction 
 {
+    
+    private string $template;
+    private CatalogueServiceInterface $catalogueService;
+    
+    public function __construct(){
+        $this->template = 'Prestation.twig';
+        $this->catalogueService = new CatalogueService();
+    }
+
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $id = $request->getQueryParams()['id'] ?? null;
@@ -19,13 +31,14 @@ class GetPrestationAction extends AbstractAction
             throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
         }
 
-        try {
-            $prestation = Prestation::findOrFail($id);
-        } catch (\Exception $e) {
+        try{
+            $prestation = $this->catalogueService->getPrestationById($id);
+        } catch (\CatalogueServiceNotFoundException $e) {
             throw new HttpNotFoundException($request, "Prestation non trouvée");
         }
+        
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, 'Prestation.twig', ['prestation' => $prestation]);
+        return $view->render($response, $this->template, ['prestation' => $prestation]);
     }
 }

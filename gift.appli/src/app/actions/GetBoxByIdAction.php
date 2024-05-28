@@ -3,16 +3,26 @@
 namespace gift\appli\app\actions;
 
 use Carbon\AbstractTranslator;
-use gift\appli\models\Box;
-use gift\appli\models\Categorie;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Views\Twig;
 
+use gift\appli\core\services\box\BoxServiceInterface;
+use gift\appli\core\services\box\BoxService;
+use gift\appli\core\services\box\BoxServiceNotFoundException;
+
 class GetBoxByIdAction extends AbstractAction
 {
+
+    private string $template;
+    private BoxServiceInterface $boxService;
+    
+    public function __construct(){
+        $this->template = 'BoxById.twig';
+        $this->boxService = new BoxService();
+    }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
@@ -21,13 +31,13 @@ class GetBoxByIdAction extends AbstractAction
             throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
         }
 
-        try {
-            $box = Box::findOrFail($id);
-        } catch (\Exception $e) {
-            throw new HttpNotFoundException($request, "Catégorie non trouvée");
+        try{
+            $box = $this->boxService->getBoxById($id);
+        } catch (BoxServiceNotFoundException $e) {
+            throw new HttpNotFoundException($request, "Boîte non trouvée");
         }
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, 'BoxById.twig', ['box' => $box]);
+        return $view->render($response, $this->template, ['box' => $box]);
     }
 }

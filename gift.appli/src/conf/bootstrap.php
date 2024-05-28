@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-gift\appli\app\utils\Eloquent::init(__DIR__ . '/gift.db.conf.ini.dist');
+gift\appli\infrastructure\Eloquent::init(__DIR__ . '/gift.db.conf.ini.dist');
 
 /* application bootstrap */
 
