@@ -133,7 +133,7 @@ class CatalogueService implements CatalogueServiceInterface {
             $filteredDescription = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
 
             if ($libelle !== $filteredLibelle || $description !== $filteredDescription) {
-                throw new CatalogueServiceArgumentException("Données de catégorie invalides.");
+                throw new \Exception("Données de catégorie invalides.");
             }
 
             $categorie = new Categorie();

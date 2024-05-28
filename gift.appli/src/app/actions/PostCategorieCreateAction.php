@@ -45,10 +45,8 @@ class PostCategorieCreateAction extends AbstractAction
 
         try {
             $categorie = $this->catalogueService->createCategorie($formData);
-        } catch (CatalogueServiceArgumentException $e) {
-            throw new HttpBadRequestException($request, 'Création de la catégorie échouée: arguments invalides');
         } catch (CatalogueServiceNotFoundException $e) {
-            throw new HttpBadRequestException($request, 'Création de la catégorie échouée: erreur de la création');
+            throw new HttpBadRequestException($request, 'Création de la catégorie échouée');
         }
 
         $url = "/categories";
