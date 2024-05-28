@@ -1,0 +1,19 @@
+Liste des potentiels services :
+ - Box :
+    - chercher une box par son id
+    - chercher toutes les box
+    - chercher les box prédéfinies
+ - Cathegorie :
+    - chercher toutes les catégories
+    - chercher une catégorie par son id
+    - créer une catégorie
+ - Prestation :
+    - chercher toutes les prestations
+    - chercher une prestation par son id
+    - chercher les prestations d'une catégorie
+    - chercher les prestations du catalogue triées selon un critère donné
+    - chercher les prestations dans l'odre croissant de prix
+    - chercher les prestations dans l'odre décroissant de prix
+    - modifier une prestation
+    - associer une prestation à une catégorie
+
