@@ -2,11 +2,21 @@
 {% block content %}
 <h1>Création d'une box</h1>
 <form id="mon forme" action="" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     <label for="name">Nom</label>
-    <input type="text" id="name" name="name">
+    <input type="text" id="name" name="name" required>
     <label for="description">Description</label>
-    <input type="text" id="description" name="description">
+    <input type="text" id="description" name="description" required>
+    <label for="kdo">Cadeau</label>
+    <input type="checkbox" id="kdo" name="kdo">
+    <label for="kdo_message">Message du cadeau</label>
+    <input type="text" id="kdo_message" name="kdo_message" placeholder="message cadeau" value="">
     <button type="submit">Créer</button>
 </form>
+<script>
+    document.getElementById("kdo").addEventListener("change", function() {
+        document.getElementById("kdo_message").disabled = !this.checked;
+    });
+</script>
 <a class="bouton" href="{{ url_for('root') }}">Retour au menu</a>
 {% endblock %}

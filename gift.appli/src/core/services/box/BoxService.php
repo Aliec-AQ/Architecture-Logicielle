@@ -56,4 +56,22 @@ class BoxService implements BoxServiceInterface {
             throw new BoxServiceNotFoundException("Échec de la récupération des boxes prédéfinis depuis la base de données.");
         }
     }
+
+    public function createBox(array $data): Box {
+        try {
+            $box = new Box();
+            $box->token = $data['_csrf_token'];
+            $box->libelle = $data['name'];
+            $box->description = $data['description'];
+            $box->montant = 0;
+            $box->kdo = isset($data['kdo']) ? 1 : 0;
+            $box->statut = 1;
+            $box->message_kdo = $data['kdo_message'];
+            $box->save();
+            return $box;
+        }catch (\Exception){
+            throw new \gift\appli\core\services\box\BoxServiceNotFoundException();
+        }
+
+    }
 }
