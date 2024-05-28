@@ -5,9 +5,12 @@ gift\appli\infrastructure\Eloquent::init(__DIR__ . '/gift.db.conf.ini.dist');
 
 /* application bootstrap */
 
+session_start();
+
 $app = \Slim\Factory\AppFactory::create();
 
 $app->addRoutingMiddleware();
+$app->addBodyParsingMiddleware();
 $app->addErrorMiddleware(true, false, false);
 
 /* Config Twig */

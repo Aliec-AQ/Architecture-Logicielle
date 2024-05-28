@@ -122,11 +122,25 @@ class CatalogueService implements CatalogueServiceInterface {
      * @param array $data Les données de la catégorie.
      * @return int L'identifiant de la catégorie créée.
      * @throws CatalogueServiceNotFoundException Si la création de la catégorie échoue.
+     * @throws CatalogueServiceArgumentException Si les données de la catégorie sont invalides.
      */
     public function createCategorie(array $data): int {
         try {
-            $categorie = new Categorie($data);
+            $libelle = $data['libelle'] ?? '';
+            $description = $data['description'] ?? '';
+
+            $filteredLibelle = htmlspecialchars($libelle, ENT_QUOTES, 'UTF-8');
+            $filteredDescription = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
+
+            if ($libelle !== $filteredLibelle || $description !== $filteredDescription) {
+                throw new CatalogueServiceArgumentException("Données de catégorie invalides.");
+            }
+
+            $categorie = new Categorie();
+            $categorie->libelle = $filteredLibelle;
+            $categorie->description = $filteredDescription;
             $categorie->save();
+
             return $categorie->id;
         } catch (\Exception $e) {
             throw new CatalogueServiceNotFoundException("Échec de la création de la catégorie.");

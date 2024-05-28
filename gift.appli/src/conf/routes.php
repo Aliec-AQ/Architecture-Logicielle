@@ -14,28 +14,33 @@ use gift\appli\app\actions\GetListePrestationsAction;
 use gift\appli\app\actions\GetPrestationAction;
 use gift\appli\app\actions\GetBoxCreateAction;
 use gift\appli\app\actions\PostBoxCreateAction;
+use gift\appli\app\actions\GetCategorieCreateAction;
+use gift\appli\app\actions\PostCategorieCreateAction;
 
 return function( App $app): App {
 
-    // route globale pour accéder rapidement aux différentes pages
+    /* ROUTE ROOT */
+
     $app->get('/', GetRootAction::class)->setName('root');
 
+    /* ROUTES CATEGORIE */
+
+    $app->get('/categorie/create[/]', GetCategorieCreateAction::class)->setName('categorieCreate');
+    $app->post('/categorie/create[/]', PostCategorieCreateAction::class)->setName('categorieCreatePost');
     $app->get('/categories[/]', GetCategorieAction::class)->setName('categories');
-
     $app->get('/categorie/{id}[/]', GetCategorieIdAction::class)->setName('categorieById');
-
     $app->get('/categorie/{id}/prestations[/]', GetPrestationsCategorieAction::class)->setName('prestationsCategorie');
 
-    $app->get('/prestation[/]', GetPrestationAction::class)->setName('prestation');
+    /* ROUTES PRESTATION */
 
+    $app->get('/prestation[/]', GetPrestationAction::class)->setName('prestation');
     $app->get('/listePrestations[/]', GetListePrestationsAction::class)->setName('listePrestations');
 
+    /* ROUTES BOX */
+
     $app->get('/box/create[/]', GetBoxCreateAction::class)->setName('boxCreate');
-
     $app->post('/box/create[/]', PostBoxCreateAction::class)->setName('boxCreatePost');
-
     $app->get('/box[/]', GetBoxByIdAction::class)->setName('box');
-
     $app->get('/boxsPredefinies[/]', GetBoxsPredefinisAction::class)->setName('boxsPredefinies');
 
     return $app;

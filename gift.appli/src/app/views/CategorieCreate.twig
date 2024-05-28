@@ -1,0 +1,14 @@
+{% extends 'index.twig' %}
+{% block content %}
+
+<form action="{{ url_for('categorieCreatePost') }}" method="POST">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+    <label for="libelle">Libelle :</label>
+    <input type="text" id="libelle" name="libelle" required />
+    <label for="description">Description :</label>
+    <textarea id="description" name="description" required></textarea>
+    <button type="submit">Ajouter</button>
+</form>
+
+{% endblock %}

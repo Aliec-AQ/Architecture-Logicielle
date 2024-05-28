@@ -55,10 +55,10 @@ interface CatalogueServiceInterface {
     public function getPrestationsSorted(string $sort): array;
 
     /**
-     * Crée de nouvelles catégories dans le catalogue.
+     * Crée une nouvelle catégorie.
      *
-     * @param array $data Les données des catégories à créer.
-     * @return int L'identifiant de la dernière catégorie créée.
+     * @param array $data Les données de la catégorie.
+     * @return int L'identifiant de la catégorie créée.
      */
     public function createCategorie(array $data): int;
 
