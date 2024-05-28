@@ -16,6 +16,7 @@ use gift\appli\app\actions\GetBoxCreateAction;
 use gift\appli\app\actions\PostBoxCreateAction;
 use gift\appli\app\actions\GetCategorieCreateAction;
 use gift\appli\app\actions\PostCategorieCreateAction;
+use gift\appli\app\actions\PostAddPrestationBox;
 
 return function( App $app): App {
 
@@ -42,6 +43,7 @@ return function( App $app): App {
     $app->post('/box/create[/]', PostBoxCreateAction::class)->setName('boxCreatePost');
     $app->get('/box[/]', GetBoxByIdAction::class)->setName('box');
     $app->get('/boxsPredefinies[/]', GetBoxsPredefinisAction::class)->setName('boxsPredefinies');
+    $app->post('/box/addPrestation[/]', PostAddPrestationBox::class)->setName('addPrestationToBox');
 
     return $app;
 };

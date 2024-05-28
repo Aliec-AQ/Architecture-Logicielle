@@ -51,12 +51,12 @@ class PostBoxCreateAction extends AbstractAction
         }, $data);
 
         try {
-            $this->boxservice->createBox($formData);
+            $box = $this->boxservice->createBox($formData);
         } catch (BoxServiceNotFoundException $e) {
-            throw new HttpBadRequestException($request, 'Création de la box échouée');
+            throw new HttpBadRequestException($request, 'Création de la catégorie échouée');
         }
 
-        $_SESSION['giftBox_box_courante'] = $csrfToken;
+        $_SESSION['giftBox_box_courante'] = $box;
 
         return $response->withStatus(302)->withHeader('Location', "/");
     }

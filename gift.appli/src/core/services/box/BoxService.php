@@ -57,9 +57,7 @@ class BoxService implements BoxServiceInterface {
         }
     }
 
-    public function createBox(array $data): Box {
-
-
+    public function createBox(array $data): string {
 
         try {
 
@@ -85,10 +83,32 @@ class BoxService implements BoxServiceInterface {
             $box->statut = 1;
             $box->message_kdo = $data['kdo_message'];
             $box->save();
-            return $box;
+            return $box->id;
         }catch (\Exception){
             throw new BoxServiceNotFoundException();
         }
 
+    }
+
+    /**
+     * Ajoute une prestation à un coffret.
+     *
+     * @param string $prestationId L'identifiant de la prestation.
+     * @param string $boxId L'identifiant du coffret.
+     * @throws BoxServiceNotFoundException Si le coffret ou la prestation n'est pas trouvée dans la base de données.
+     */
+    public function addPrestationToBox(string $prestationId, string $boxId): void {
+        try{
+            if(is_null($prestationId) || is_null($boxId)){
+                throw new BoxServiceNotFoundException("Échec de l'ajout de la prestation au coffret.");
+            }
+
+            $box = Box::findOrFail($boxId);
+            $prestation = Prestation::findOrFail($prestationId);
+            $box->prestations()->attach($prestation, ['quantite' => 1]);
+            $box->save();
+        } catch (BoxServiceNotFoundException $e) {
+            throw new BoxServiceNotFoundException("Échec de l'ajout de la prestation au coffret.");
+        }
     }
 }
