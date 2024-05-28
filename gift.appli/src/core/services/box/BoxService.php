@@ -5,6 +5,7 @@ use gift\appli\core\services\box\BoxServiceInterface;
 use gift\appli\core\services\box\BoxServiceNotFoundException;
 
 use gift\appli\core\domain\entites\Box;
+use gift\appli\core\domain\entites\Prestation;
 
 /**
  * Service de gestion des boîtes.
