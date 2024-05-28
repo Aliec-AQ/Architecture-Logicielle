@@ -3,10 +3,10 @@
 <a class="card">
     <h2>{{box.libelle}}</h2>
     <h3>{{box.montant}} €</h3>
-    <p>{{ box.description }}</p>
+    <p class="texteReduit">{{ box.description }}</p>
     {% if  box.kdo %}
     <h2>- Cadeau -</h2>
-    <p>{{ box.message_kdo }}</p>
+    <p class="texteReduit">{{ box.message_kdo }}</p>
     {% endif %}
 </a>
 <a class="bouton" href="{{ url_for('boxsPredefinies') }}">Retour aux boxs prédéfinies</a>

@@ -175,3 +175,7 @@ form button[type="submit"]:hover {
 #rootTitre{
     font-size: 50px;
 }
+
+.texteReduit{
+    width: 500px;
+}
