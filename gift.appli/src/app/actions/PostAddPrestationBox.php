@@ -46,7 +46,7 @@ class PostAddPrestationBox extends AbstractAction
 
 
         try {
-            $this->boxService->addPrestationToBox($prestationId, $boxId);
+            $this->boxService->addPrestationToBox($prestationId, $boxId, $data['quantite']);
         } catch (BoxServiceNotFoundException $e) {
             throw new HttpBadRequestException($request, 'Ajout de la prestation échouée');
         }
