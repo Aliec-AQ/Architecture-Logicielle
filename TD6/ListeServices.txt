@@ -3,7 +3,7 @@ Liste des potentiels services :
     - chercher une box par son id
     - chercher toutes les box
     - chercher les box prédéfinies
- - Cathegorie :
+ - Categorie :
     - chercher toutes les catégories
     - chercher une catégorie par son id
     - créer une catégorie
