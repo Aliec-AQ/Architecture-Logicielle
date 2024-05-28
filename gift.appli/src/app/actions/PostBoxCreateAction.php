@@ -51,14 +51,13 @@ class PostBoxCreateAction extends AbstractAction
         }, $data);
 
         try {
-            $box = $this->boxservice->createBox($formData);
+            $this->boxservice->createBox($formData);
         } catch (BoxServiceNotFoundException $e) {
-            throw new HttpBadRequestException($request, 'Création de la catégorie échouée');
+            throw new HttpBadRequestException($request, 'Création de la box échouée');
         }
 
         $_SESSION['giftBox_box_courante'] = $csrfToken;
 
-        $view = Twig::fromRequest($request);
         return $response->withStatus(302)->withHeader('Location', "/");
     }
 }

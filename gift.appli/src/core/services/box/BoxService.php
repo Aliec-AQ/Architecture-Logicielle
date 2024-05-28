@@ -72,6 +72,7 @@ class BoxService implements BoxServiceInterface {
             $filteredMessageKdo = htmlspecialchars($message_kdo, ENT_QUOTES, 'UTF-8');
 
             if ($name !== $filteredName || $description !== $filteredDescription || $message_kdo !== $filteredMessageKdo) {
+                echo "probleme";
                 throw new \Exception("Données de catégorie invalides.");
             }
 
