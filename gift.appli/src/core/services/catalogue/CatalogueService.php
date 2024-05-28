@@ -126,8 +126,8 @@ class CatalogueService implements CatalogueServiceInterface {
      */
     public function createCategorie(array $data): int {
         try {
-            $libelle = $data['libelle'] ?? '';
-            $description = $data['description'] ?? '';
+            $libelle = $data['libelle'];
+            $description = $data['description'];
 
             $filteredLibelle = htmlspecialchars($libelle, ENT_QUOTES, 'UTF-8');
             $filteredDescription = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');

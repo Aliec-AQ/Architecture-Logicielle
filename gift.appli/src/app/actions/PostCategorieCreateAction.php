@@ -41,7 +41,10 @@ class PostCategorieCreateAction extends AbstractAction
         }
 
         /* Filtre des données */
-        $formData = array_map('htmlspecialchars', $data, [ENT_QUOTES, 'UTF-8']);
+        $formData = [
+            'libelle' => htmlspecialchars($data['libelle'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'description' => htmlspecialchars($data['description'] ?? '', ENT_QUOTES, 'UTF-8')
+        ];
 
         try {
             $categorie = $this->catalogueService->createCategorie($formData);
