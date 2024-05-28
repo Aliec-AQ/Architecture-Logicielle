@@ -58,7 +58,23 @@ class BoxService implements BoxServiceInterface {
     }
 
     public function createBox(array $data): Box {
+
+
+
         try {
+
+            $name = $data['name'];
+            $description = $data['description'];
+            $message_kdo = $data['kdo_message'];
+
+            $filteredName = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+            $filteredDescription = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
+            $filteredMessageKdo = htmlspecialchars($message_kdo, ENT_QUOTES, 'UTF-8');
+
+            if ($name !== $filteredName || $description !== $filteredDescription || $message_kdo !== $filteredMessageKdo) {
+                throw new \Exception("Données de catégorie invalides.");
+            }
+
             $box = new Box();
             $box->token = $data['_csrf_token'];
             $box->libelle = $data['name'];
@@ -70,7 +86,7 @@ class BoxService implements BoxServiceInterface {
             $box->save();
             return $box;
         }catch (\Exception){
-            throw new \gift\appli\core\services\box\BoxServiceNotFoundException();
+            throw new BoxServiceNotFoundException();
         }
 
     }
