@@ -6,7 +6,6 @@ participant "Giftbox" as G
 participant "Box" as B
 participant "Catalogue" as C
 participant "Prestation" as Pr
-participant "Panier" as P
 
 U -> G: app->get('/giftbox/boxcreate')
 G -> G: __invoke()
