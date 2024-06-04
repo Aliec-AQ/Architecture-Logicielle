@@ -1,5 +1,5 @@
 <?php
-namespace gift\appli\app\actions;
+namespace gift\appli\app\actions\box;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +11,7 @@ use gift\appli\core\services\box\BoxService;
 use gift\appli\core\services\box\BoxServiceInterface;
 use gift\appli\core\services\box\BoxServiceNotFoundException;
 
-class PostAddPrestationBox extends AbstractAction
+class PostAddPrestationBox extends \gift\appli\app\actions\AbstractAction
 {
     private BoxServiceInterface $boxService;
     
@@ -51,7 +51,7 @@ class PostAddPrestationBox extends AbstractAction
             throw new HttpBadRequestException($request, 'Ajout de la prestation échouée');
         }
 
-        $url = "/categories";
+        $url = "/listePrestations/";
         return $response->withStatus(302)->withHeader('Location', $url);
     }
 }

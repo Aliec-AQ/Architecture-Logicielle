@@ -1,0 +1,104 @@
+/*
+CSS pour tout ce qui est affichage de données / principal, cards, tables, etc.
+
+Mettre le css qui est en relation avec l'affichage de données dans ce fichier.
+*/
+
+
+/* cards.css */
+
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    width: 100%;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+  
+.cardContainer .card {
+    width: calc(20% - 40px);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+  
+.cardContainer .card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.cardImage{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.displayCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap : 10px;
+    min-width: 400px;
+    max-width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.displayCard img {
+    width: auto;
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.displayCard p {
+  font-size: 16px;
+  color: #303030;
+}
+
+/* tables */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* boxes */
+
+.box-container {
+    margin-top : 20px;
+    display: flex;
+    width: 100%;
+}
+
+.box-info {
+    flex: 0 0 33%;
+    overflow: auto; 
+}
+
+.box-prestations {
+    flex: 1; 
+}

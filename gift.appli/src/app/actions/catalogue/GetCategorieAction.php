@@ -1,40 +1,36 @@
 <?php
-
-namespace gift\appli\app\actions;
+namespace gift\appli\app\actions\catalogue;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use gift\appli\app\actions\AbstractAction;
-use Slim\Exception\HttpBadRequestException;
-use Slim\Exception\HttpNotFoundException;
 use Slim\Views\Twig;
 
 use gift\appli\core\services\catalogue\CatalogueService;
 use gift\appli\core\services\catalogue\CatalogueServiceInterface;
 use gift\appli\core\services\catalogue\CatalogueServiceNotFoundException;
 
-class GetListePrestationsAction extends AbstractAction 
+
+class GetCategorieAction extends \gift\appli\app\actions\AbstractAction
 {
 
     private string $template;
     private CatalogueServiceInterface $catalogueService;
     
     public function __construct(){
-        $this->template = 'ListePrestation.twig';
+        $this->template = 'Categories.twig';
         $this->catalogueService = new CatalogueService();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $sort = $request->getQueryParams()['sort'] ?? "";
-
         try{
-            $prestations = $this->catalogueService->getPrestationsSorted($sort);
+            $categories = $this->catalogueService->getCategories();
         } catch (\CatalogueServiceNotFoundException $e) {
-            throw new HttpNotFoundException($request, "Prestations non trouvées");
+            throw new HttpNotFoundException($request, "Catégories non trouvées");
         }
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, ['prestations' => $prestations]);
+        return $view->render($response, $this->template, ['categories' => $categories]);
     }
 }

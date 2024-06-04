@@ -8,7 +8,7 @@
 
                 <a class="card" href="{{ url_for('box') ~ "?id=" ~ box.id }}">
                     <h2>{{box.libelle}}</h2>
-                    <p>prix : {{box.montant}}</p>
+                    <p>prix : {{box.montant}} €</p>
                 </a>
             {% endfor %}
         </div>

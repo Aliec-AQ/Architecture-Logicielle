@@ -2,15 +2,16 @@
 
 {% block content %}
     <h1>Liste des prestations</h1>
-
-    {% if prestations %}
-    <div>
-        <a class="bouton" href="{{ url_for('listePrestations') ~ '?sort=price_asc'}}">Trier par prix croissant</a>
-        <a class="bouton" href="{{ url_for('listePrestations') ~ '?sort=price_desc' }}">Trier par prix décroissant</a>
-        <a class="bouton" href="{{ url_for('listePrestations') ~ '?sort=alphabet_asc' }}">Trier par ordre alphabétique (A-Z)</a>
-        <a class="bouton" href="{{ url_for('listePrestations') ~ '?sort=alphabet_desc' }}">Trier par ordre alphabétique (Z-A)</a>
-        <a class="bouton" href="{{ url_for('listePrestations') }}">Supprimer les filtres</a>
-    </div>
+    <form method="get" action="" class="buttonContainer">
+        <select name="sort" onchange="this.form.submit()">
+            <option value="">Trier par</option>
+            <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>Prix (Croissant)</option>
+            <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>Prix (Décroissant)</option>
+            <option value="name_asc" {% if sort == 'name_asc' %}selected{% endif %}>Nom (A-Z)</option>
+            <option value="name_desc" {% if sort == 'name_desc' %}selected{% endif %}>Nom (Z-A)</option>
+        </select>
+        <button type="reset" onclick="window.location.href=window.location.href.split('?')[0]" class="bouton">Enlever filtre</button>
+    </form>
 
     <div class="cardContainer">
         {% for prestation in prestations %}
@@ -18,13 +19,12 @@
                 <h3>{{ prestation.libelle }}</h3>
                 <p>Prix : {{ prestation.tarif }} €</p>
                 <p>Catégorie : {{ prestation.categorie.libelle }}</p>
-                <img src="{{ base_path() }}/img/{{ prestation.img }}" alt="{{ prestation.libelle }}" class="listImg">
+                <img src="{{ base_path() }}/img/{{ prestation.img }}" alt="{{ prestation.libelle }}" class="cardImage">
             </a>
         {% endfor %}
     </div>
-    {% else %}
-        <p>Aucunes prestations disponibles</p>
-    {% endif %}
 
     <a class="bouton" href="{{ url_for('root') }}">Retour au menu</a>
 {% endblock %}
+
+

@@ -21,7 +21,7 @@ class BoxService implements BoxServiceInterface {
      */
     public function getBoxById(string $id): array {
         try{
-            $box = Box::findOrFail($id);
+            $box = Box::with('prestations')->findOrFail($id);
             return $box->toArray();
         } catch (BoxServiceNotFoundException $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération de la box depuis la base de données.");
@@ -58,6 +58,13 @@ class BoxService implements BoxServiceInterface {
         }
     }
 
+    /**
+     * Crée une boîte.
+     *
+     * @param array $data Les données de la boîte.
+     * @return string L'identifiant de la boîte créée.
+     * @throws BoxServiceNotFoundException Si la boîte n'a pas pu être créée.
+     */
     public function createBox(array $data): string {
 
         try {
@@ -106,7 +113,26 @@ class BoxService implements BoxServiceInterface {
 
             $box = Box::findOrFail($boxId);
             $prestation = Prestation::findOrFail($prestationId);
-            $box->prestations()->attach($prestation, ['quantite' => $quantite]);
+            
+            // check si la prestation est déjà dans le coffret
+            $existingPrestation = $box->prestations()->where('presta_id', $prestationId)->first();
+
+            if ($existingPrestation) {
+                // met à jour la quantité de la prestation
+                $existingPrestation->pivot->quantite += $quantite;
+                $existingPrestation->pivot->save();
+            } else {
+                // ajoute la prestation au coffret
+                $box->prestations()->attach($prestation, ['quantite' => $quantite]);
+            }
+
+            // met à jour le montant du coffret
+            $totalMontant = 0;
+            foreach ($box->prestations as $prestation) {
+                $totalMontant += $prestation->pivot->quantite * $prestation->tarif;
+            }
+            $box->montant = $totalMontant;
+
             $box->save();
         } catch (BoxServiceNotFoundException $e) {
             throw new BoxServiceNotFoundException("Échec de l'ajout de la prestation au coffret.");

@@ -1,13 +1,7 @@
 {% extends 'index.twig' %}
 {% block content %}
-<div class="centerdiv">
-<h1 id="rootTitre">Gift App</h1>
-</div>
-<div class="cardContainer">
-<a class="boxNeon" href="{{ url_for('categories') }}"><p class="textBoxNeon">Categories</p></a>
-<a class="boxNeon" href="{{ url_for('boxCreate') }}"><p class="textBoxNeon">Créer une box</p></a>
-<a class="boxNeon" href="{{ url_for('listePrestations') }}"><p class="textBoxNeon">Prestations</p></a>
-<a class="boxNeon" href="{{ url_for('boxsPredefinies') }}"><p class="textBoxNeon">Boxs prédéfinies</p></a>
-<a class="boxNeon" href="{{ url_for('categorieCreate') }}"><p class="textBoxNeon">Créer une catégorie</p></a>
-</div>
+    <div>
+        <h1>Bienvenue sur GiftBox</h1>
+        <p>Il n'y a rien ici pour l'instant. Allez dans le menu</p>
+    </div>
 {% endblock %}

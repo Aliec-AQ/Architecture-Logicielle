@@ -1,5 +1,5 @@
 <?php
-namespace gift\appli\app\actions;
+namespace gift\appli\app\actions\box;
 
 use gift\appli\app\utils\CsrfService;
 use Psr\Http\Message\ServerRequestInterface;
@@ -8,7 +8,7 @@ use gift\appli\app\actions\AbstractAction;
 use Slim\Views\Twig;
 
 
-class GetBoxCreateAction extends AbstractAction 
+class GetBoxCreateAction extends \gift\appli\app\actions\AbstractAction 
 {
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {

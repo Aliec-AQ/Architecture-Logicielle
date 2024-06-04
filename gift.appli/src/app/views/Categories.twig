@@ -1,20 +1,11 @@
 {% extends 'index.twig' %}
 {% block content %}
-<body>
-<h1>Categories</h1>
-{% if categories is not null %}
-<div class="cardContainer">
-{% for cat in categories %}
-
-<a class="card" href="{{ url_for('categorieById', {'id':cat.id}) }}">
-        <h2>{{cat.libelle}}</h2>
-        <p>ID: {{cat.id}}</p>
-</a>
-{% endfor %}
-</div>
-{% else %}
-<h1>Aucune catégorie</h1>
-{% endif %}
-<a class="bouton" href="{{ url_for('root') }}">Retour au menu</a></
-</body>
+    <h1>Nos Catégories</h1>
+    <div class="cardContainer">
+        {% for cat in categories %}
+            <a class="card" href="{{ url_for('categorieById', {'id':cat.id}) }}">
+                <h2>{{ cat.libelle }}</h2>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}

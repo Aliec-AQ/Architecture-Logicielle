@@ -1,5 +1,5 @@
 <?php
-namespace gift\appli\app\actions;
+namespace gift\appli\app\actions\catalogue;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -8,7 +8,7 @@ use Slim\Views\Twig;
 
 use gift\appli\app\utils\CsrfService;
 
-class GetCategorieCreateAction extends AbstractAction
+class GetCategorieCreateAction extends \gift\appli\app\actions\AbstractAction
 {
 
     private string $template;

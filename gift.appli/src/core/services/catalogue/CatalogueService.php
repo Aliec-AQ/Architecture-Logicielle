@@ -100,8 +100,8 @@ class CatalogueService implements CatalogueServiceInterface {
     public function getPrestationsSorted(string $sort): array {
         try {
             $orderBy = [
-                'alphabet_asc' => ['column' => 'libelle', 'direction' => 'asc'],
-                'alphabet_desc' => ['column' => 'libelle', 'direction' => 'desc'],
+                'name_asc' => ['column' => 'libelle', 'direction' => 'asc'],
+                'name_desc' => ['column' => 'libelle', 'direction' => 'desc'],
                 'price_asc' => ['column' => 'tarif', 'direction' => 'asc'],
                 'price_desc' => ['column' => 'tarif', 'direction' => 'desc']
             ];

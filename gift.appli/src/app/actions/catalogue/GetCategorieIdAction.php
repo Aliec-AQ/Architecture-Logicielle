@@ -1,36 +1,41 @@
 <?php
-namespace gift\appli\app\actions;
+namespace gift\appli\app\actions\catalogue;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use gift\appli\app\actions\AbstractAction;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Views\Twig;
 
 use gift\appli\core\services\catalogue\CatalogueService;
 use gift\appli\core\services\catalogue\CatalogueServiceInterface;
 use gift\appli\core\services\catalogue\CatalogueServiceNotFoundException;
 
-
-class GetCategorieAction extends AbstractAction
+class GetCategorieIdAction extends \gift\appli\app\actions\AbstractAction
 {
-
     private string $template;
     private CatalogueServiceInterface $catalogueService;
     
     public function __construct(){
-        $this->template = 'Categories.twig';
+        $this->template = 'CategorieById.twig';
         $this->catalogueService = new CatalogueService();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        try{
-            $categories = $this->catalogueService->getCategories();
+        $id = $args['id'];
+
+        if (is_null($id)) {
+            throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
+        }
+
+        try {
+            $category = $this->catalogueService->getCategorieById($id);
         } catch (\CatalogueServiceNotFoundException $e) {
-            throw new HttpNotFoundException($request, "Catégories non trouvées");
+            throw new HttpNotFoundException($request, "Catégorie non trouvée");
         }
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, ['categories' => $categories]);
+        return $view->render($response, 'CategorieById.twig', $category);
     }
 }

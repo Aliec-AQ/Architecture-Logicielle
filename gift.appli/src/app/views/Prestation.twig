@@ -1,7 +1,7 @@
 {% extends 'index.twig' %}
 {% block content %}
 
-<div class="card">
+<div class="displayCard">
     <h2>{{ prestation.libelle }}</h2>
     <img src="{{base_path()}}/img/{{prestation.img}}" alt="{{prestation.libelle}}">
     <p>Description : {{ prestation.description }}</p>
@@ -11,15 +11,21 @@
     <p>Catégorie: {{ prestation.categorie.libelle }}</p>
     <p>Prix: {{ prestation.tarif }} €</p>
     
-    <form action="{{ url_for('addPrestationToBox') }}" method="POST">
+    <form  action="{{ url_for('addPrestationToBox') }}" method="POST">
+    <fieldset class="formFieldSet">
+        <legend>Ajouter la prestation à la box</legend>
         <input type="hidden" name="prestationId" value="{{ prestation.id }}">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        <label for="quantite">Quantité</label>
-        <input class="numberForm" type="number" id="quantite" name="quantite" min="1" value="1" required>
+        <div>
+            <label for="quantite">Quantité : </label>
+            <input type="number" id="quantite" name="quantite" min="1" value="1" required placeholder="Enter quantity">
+        </div>
         <button type="submit" class="bouton">Ajouter au coffret</button>
-    </form>
+    </fieldset>
+</form>
 </div>
 
 <a class="bouton" href="{{ url_for('root')}}">Retour au menu</a>
 
 {% endblock %}
+

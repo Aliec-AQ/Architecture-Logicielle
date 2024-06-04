@@ -1,13 +1,12 @@
 {% extends 'index.twig' %}
 {% block content %}
-<div class="card">
-    <h1>Categorie</h1>
-    <p>ID: {{id}}</p>
-    <p>Libelle: {{libelle}}</p>
-    <p>Description: {{description}}</p>
-    <a class="bouton" href="{{ url_for('prestationsCategorie', {'id':id}) }}">Voir les prestations de la catégorie</a>
-</div>
-
-<a class="bouton" href="{{ url_for('categories') }}">Retour à la liste des catégories</a>
-
+    <div class="displayCard">
+        <h2>{{ libelle }}</h2>
+        <p>ID: {{ id }}</p>
+        <p>Description: {{ description }}</p>
+        <div class="buttonContainer">
+            <a class="bouton" href="{{ url_for('prestationsCategorie', {'id':id}) }}">Voir les Prestations</a>
+            <a class="bouton" href="{{ url_for('categories') }}">Retour aux Catégories</a>
+        </div>
+    </div>
 {% endblock %}

@@ -1,8 +1,10 @@
 <?php
-namespace gift\appli\app\actions;
+
+namespace gift\appli\app\actions\catalogue;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use gift\appli\app\actions\AbstractAction;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Views\Twig;
@@ -11,36 +13,28 @@ use gift\appli\core\services\catalogue\CatalogueService;
 use gift\appli\core\services\catalogue\CatalogueServiceInterface;
 use gift\appli\core\services\catalogue\CatalogueServiceNotFoundException;
 
-use gift\appli\app\utils\CsrfService;
-
-class GetPrestationAction extends AbstractAction 
+class GetListePrestationsAction extends \gift\appli\app\actions\AbstractAction 
 {
-    
+
     private string $template;
     private CatalogueServiceInterface $catalogueService;
     
     public function __construct(){
-        $this->template = 'Prestation.twig';
+        $this->template = 'ListePrestation.twig';
         $this->catalogueService = new CatalogueService();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $id = $request->getQueryParams()['id'] ?? null;
-
-        if (is_null($id)) {
-            throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
-        }
+        $sort = $request->getQueryParams()['sort'] ?? "";
 
         try{
-            $prestation = $this->catalogueService->getPrestationById($id);
+            $prestations = $this->catalogueService->getPrestationsSorted($sort);
         } catch (\CatalogueServiceNotFoundException $e) {
-            throw new HttpNotFoundException($request, "Prestation non trouvée");
+            throw new HttpNotFoundException($request, "Prestations non trouvées");
         }
-        
-        $csrf_token = CsrfService::generate();
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, ['prestation' => $prestation, 'csrf_token' => $csrf_token]);
+        return $view->render($response, $this->template, ['prestations' => $prestations, 'sort' => $sort]);
     }
 }

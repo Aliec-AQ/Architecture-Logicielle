@@ -1,0 +1,53 @@
+/*
+CSS pour tout ce qui est formulaire, bouton, select, input, etc.
+
+Mettre le css qui est en relation avec les formulaires dans ce fichier.
+*/
+
+.bouton {
+    background-color: #007B9A;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .bouton:hover {
+    background-color: #bb8f00;
+  }
+  
+  .buttonContainer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+  }
+  
+  select {
+      padding: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
+  
+  .formFieldSet {
+      display: flex;
+      gap: 10px;
+      padding: 20px;
+      flex-direction: column;
+  }
+  
+  input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+  }
+  
+  input:disabled {
+      background-color: #eee;
+  }

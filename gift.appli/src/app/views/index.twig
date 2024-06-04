@@ -2,17 +2,24 @@
 <html>
 <head>
     <title>GiftBox</title>
-    <link rel="stylesheet" type="text/css" href="{{ base_path() }}/main.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_path() }}/css/affichage.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_path() }}/css/index.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_path() }}/css/form.css">
     <meta charset="UTF-8">
 </head>
 <body>
-    <nav>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="{{ url_for('root') }}">Accueil</a>
         <a href="{{ url_for('categories') }}">Categories</a>
-        <a href="{{ url_for('boxCreate') }}">Créer une box</a>
+        <a href="{{ url_for('categorieCreate') }}">Créer une catégorie</a>
         <a href="{{ url_for('listePrestations') }}">Prestations</a>
+        <a href="{{ url_for('boxCreate') }}">Créer une box</a>
         <a href="{{ url_for('boxsPredefinies') }}">Boxs prédéfinies</a>
-    </nav>
+        <a href="{{ url_for('boxCourante') }}">Box Courante</a>
+    </div>
+
+    <span onclick="openNav()" id="openSideBar">&#9776;</span>
 
     <main>
         {% block content %}{% endblock %}
@@ -21,5 +28,14 @@
     <footer>
         &copy; GiftBox - Kevin Etique - Amaury Quilliec - Maxime Koler
     </footer>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }       
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script
 </body>
 </html>
