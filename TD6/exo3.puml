@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor User as U
+participant "Giftbox" as G
+participant "Box" as B
+participant "Catalogue" as C
+participant "Prestation" as Pr
+participant "Panier" as P
+
+U -> G: app->get('/giftbox/boxcreate')
+G -> G: __invoke()
+G --> U: BoxCreate.html
+U -> U: ajout des parametres du coffret
+U -> U: valider la creation
+U -> G: app->post('/giftbox/boxcreate')
+G -> B: __construct()
+B -> B: __invoke()
+B --> G: BoxCourante.html
+G --> U: BoxCourante.html
+U -> G: app->get("root")
+G -> G: __invoke()
+G --> U: Root.html
+U -> G: app->get("/giftbox/categories/")
+G -> C: __construct()
+C -> C: __invoke()
+C --> G: Categories.html
+G --> U: Categories.html
+U -> G: app->get("/giftbox/categories/{id}")
+G -> C: __construct()
+C -> C: __invoke()
+C --> G: CategorieById.html
+G --> U: CategorieById.html
+U -> G: app->get("/giftbox/prestation/")
+G -> Pr: __construct()
+Pr -> Pr: __invoke()
+Pr --> G: Prestation.html
+G --> U: Prestation.html
+U -> G: app->post("/giftbox/box/addPrestation")
+G -> B: __construct()
+B -> B: __invoke()
+B -> B: addPrestationToBox(prestation, coffret, quantite)
+B --> G: BoxCourante.html
+G --> U: BoxCourante.html
+
+@enduml
