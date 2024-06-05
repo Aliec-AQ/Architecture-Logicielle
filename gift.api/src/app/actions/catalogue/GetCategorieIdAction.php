@@ -37,7 +37,9 @@ class GetCategorieIdAction extends \gift\api\app\actions\AbstractAction
             'type' => 'ressource',
             'id' => $categorie['id'],
             'libelle' => $categorie['libelle'],
-            'description' => $categorie['description']
+            'description' => $categorie['description'],
+            'prestationsLink' => ['href' => "/api/categories/" . $categorie['id'] . "/prestations/"
+            ]
         ];
 
         $response->getBody()->write(json_encode($data));
