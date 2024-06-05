@@ -3,14 +3,10 @@ declare(strict_types=1);
 
 use gift\api\app\actions\box\GetBoxByIdAction;
 use gift\api\app\actions\catalogue\GetCategorieAction;
-use gift\api\app\actions\catalogue\GetCategorieCreateAction;
 use gift\api\app\actions\catalogue\GetCategorieIdAction;
 use gift\api\app\actions\catalogue\GetListePrestationsAction;
 use gift\api\app\actions\catalogue\GetPrestationAction;
 use gift\api\app\actions\catalogue\GetPrestationsCategorieAction;
-use gift\api\app\actions\catalogue\PostCategorieCreateAction;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 
 
