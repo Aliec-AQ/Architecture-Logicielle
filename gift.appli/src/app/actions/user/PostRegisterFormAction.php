@@ -54,6 +54,6 @@ class PostRegisterFormAction extends \gift\appli\app\actions\AbstractAction
             return $view->render($response, 'UserRegister.twig', ['error' => $error, 'csrf_token' => $token]);
         }
 
-        return $response->withStatus(302)->withHeader('Location', "/box/courante/");
+        return $response->withStatus(302)->withHeader('Location', "/");
     }
 }
