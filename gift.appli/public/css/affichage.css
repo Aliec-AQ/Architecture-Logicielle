@@ -98,3 +98,33 @@ tr:nth-child(odd) {
 .box-prestations {
     flex: 1; 
 }
+
+.titre-root {
+    margin-bottom: 40px;
+    color: #007B9A;
+    text-align: center;
+}
+
+.titre-ul {
+    margin-bottom: 40px;
+    color: #007B9A;
+}
+
+.ul-princ {
+    display: flex;
+    justify-content: center;
+    gap: 300px;
+}
+
+li{
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+.paragraphe-root {
+    margin: auto;
+    text-justify: inter-word;
+    text-align: justify;
+    width: 40%;
+}
+

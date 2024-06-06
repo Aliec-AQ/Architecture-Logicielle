@@ -1,7 +1,47 @@
 {% extends 'index.twig' %}
 {% block content %}
     <div>
-        <h1>Bienvenue sur GiftBox</h1>
-        <p>Il n'y a rien ici pour l'instant. Allez dans le menu</p>
+        <h1 class="titre-root">Bienvenue sur GiftBox</h1>
+        <p class="paragraphe-root">Le projet GiftBox est un projet étudiant de 2ème année de BUT informatique.
+            Ce projet intervient dans le cadre de la matière "Architecture logicielle", il a été réalisé par un groupe de 3 étudiants.
+
+            Le but de ce projet est de réaliser une application web et une api permettant de gérer des boxs contenant des prestations complétant une liste de fonctionnalités demandés:
+        </p>
+            <ul class="ul-princ">
+                <li> <h2 class="titre-root">Application web : </h2>
+                    <ul>
+                        <li>Afficher la liste des prestations </li>
+                        <li>Ajouter le detail d'une prestation </li>
+                        <li>Liste de prestations par catégories </li>
+                        <li>Liste de catégories </li>
+                        <li>Tri par prix </li>
+                        <li>Création d'un coffret vide </li>
+                        <li>Ajout d'une prestations dans le coffret </li>
+                        <li>Affichage d'un coffret</li>
+                        <li>Validation d'un coffret</li>
+                        <li>Paiement d'un coffret</li>
+                        <li>Modification d'un coffret: suppression de prestations</li>
+                        <li>Modification d'un coffret: modification des quantités</li>
+                        <li>Génération de l'URL d'accès</li>
+                        <li>Accès au coffret</li>
+                        <li>Signin</li>
+                        <li>Register</li>
+                        <li>Accéder à ses coffrets</li>
+                        <li>Afficher les boxs prédifinies</li>
+                        <li>Créer un coffret prérempli à partir d'une box</li>
+                        <li>Créer un coffret prérempli à partir d'une box affichée</li>
+                    </ul>
+                </li>
+                <li>
+                    <h2 class="titre-root">API : </h2>
+                    <ul>
+                        <li>Liste des prestations (GET /api/prestations)</li>
+                        <li>Detail d'une prestation (GET /api/prestations/{id})</li>
+                        <li>Liste des catégories (GET /api/categories)</li>
+                        <li>Liste des prestations par catégories (GET /api/categories/{id}/prestations)</li>
+                        <li>Accès à un coffret (GET /api/boxes/{id})</li>
+                    </ul>
+                </li>
+            </ul>
     </div>
 {% endblock %}
