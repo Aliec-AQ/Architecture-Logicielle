@@ -36,3 +36,68 @@ rediriger par l'option "categories" du menu.
 Il est possible d'afficher le detail d'une catégorie en cliquant dessus,
 page sur laquelle se trouve le bouton pour accéder à la liste 
 des prestations de cette catégorie.
+
+## Tri par prix
+Il est possible de trier les prestations par prix croissant et décroissant,
+pour cela, il suffit de cliquer sur la liste déroulante et sélectionner l'option souhaitée.
+La première option : <<Prix (Croissant)>> permet de trier les prestations par prix croissant
+et la deuxième option : <<Prix (Décroissant)>> permet de trier les prestations par prix décroissant.
+Après avoir sélectionné l'option souhaitée, la liste des prestations se met à jour automatiquement.
+L'opération peut prendre un moment, veuillez patienter.
+
+## Création d'un coffret vide
+Pour créer un coffret vide, il faut d'abord aller sur la page de création de coffret,
+pour cela, il faut cliquer sur le bouton "Créer une box" dans le menu.
+Une fois sur la page, il faudra spécifier plusieurs informations pour la création du coffret.
+Il faudra donner un nom au coffret, sa description, si le coffret sera un cadeau en cochant la case correspondante et 
+si le coffret est un cadeau, un message pour le destinataire.
+Il faudra ensuite cliquer sur le bouton "Créer" pour valider la création du coffret.
+
+## Ajout d'une prestation à un coffret
+Pour ajouter une prestation à un coffret, il faut d'abord aller sur la page de détail de la prestation,
+pour cela, il faut cliquer sur la prestation souhaitée.
+Une fois sur la page, il faudra cliquer sur le bouton "Ajouter au coffret" pour ajouter la prestation au coffret.
+Une foie ajoutée, vous serez tout de suite redirigé vers la page de détail de liste de prestations.
+
+## Affichage d'un coffret
+Pour afficher un coffret, il y a plusieurs moyens de le faire,
+Le premier est d'y accéder par la route "box/courante", un autre est le bouton "Box Courante" du menu.
+Une fois sur la page, toutes les informations du coffret s'affichent,
+ainsi que les prestations qui le composent.
+
+## Sign in
+Pour se connecter, l'on peut cliquer sur le bouton "Connexion" dans le menu.
+Une fois sur la page, il faudra renseigner son adresse mail et son mot de passe.
+Ou alors, il est possible de se connecter en cliquant essayant de créer un coffret,
+il faudra alors se connecter ou créer un compte pour pouvoir continuer.
+Une fois sur la page, il faudra renseigner son adresse mail et son mot de passe.
+
+## Register
+Pour s'inscrire, l'on peut cliquer sur le bouton "Connexion" dans le menu.
+Ou essayant de créer un coffret, il faudra alors se connecter ou créer un compte pour pouvoir continuer.
+Une fois sur la page, il faudra cliquer sur le bouton "Register" pour accéder au formulaire d'inscription.
+Il faudra ensuite renseigner son adresse mail et son mot de passe deux fois.
+Une fois le formulaire rempli, il faudra cliquer sur le bouton "Register" pour valider l'inscription.
+
+## Afficher les box prédéfinies
+Pour afficher les box prédéfinies, il y a 2 moyens,
+le premier est d'y accéder par la route "/boxsPredefinies" et
+l'autre moyen est de cliquer sur l'option "box prédéfinies" du menu de l'application.
+Toutes les box prédéfinies vont alors s'afficher de façon identique avec nom, prix.
+Vous pouvez cliquer sur une box pour en afficher le détail.
+
+## Liste des prestations 
+Pour afficher la liste des prestations, il y a 2 moyens,
+le premier est d'y accéder par la route "/listePrestations" et
+l'autre moyen est de cliquer sur l'option "prestations" du menu de l'application.
+
+## Liste des catégories
+Pour afficher la liste des catégories, il y a 2 moyens,
+le premier est d'y accéder par la route "/categories" et
+l'autre moyen est de cliquer sur l'option "Categories" du menu de l'application.
+
+## Liste des prestations par catégorie
+Pour afficher la liste des prestations par catégorie, il y a 2 moyens,
+le premier est d'y accéder par la route "/categorie/{id categorie}/prestations" et
+l'autre moyen est de cliquer sur le bouton "voir prestations" sur la page de détail d'une catégorie.
+Pour afficher le détail d'une catégorie, il suffit de cliquer sur une catégorie dans la liste des catégories.
