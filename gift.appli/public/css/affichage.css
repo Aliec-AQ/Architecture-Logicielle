@@ -50,6 +50,7 @@ Mettre le css qui est en relation avec l'affichage de données dans ce fichier.
     border-radius: 5px;
     padding: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 .displayCard img {
@@ -57,11 +58,6 @@ Mettre le css qui est en relation avec l'affichage de données dans ce fichier.
     height: auto;
     border: 2px solid #ccc;
     border-radius: 5px;
-}
-
-.displayCard p {
-  font-size: 16px;
-  color: #303030;
 }
 
 /* tables */

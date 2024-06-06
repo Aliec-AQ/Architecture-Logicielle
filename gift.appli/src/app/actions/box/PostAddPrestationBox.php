@@ -11,18 +11,29 @@ use gift\appli\core\services\box\BoxService;
 use gift\appli\core\services\box\BoxServiceInterface;
 use gift\appli\core\services\box\BoxServiceNotFoundException;
 
+use gift\appli\core\services\autorisation\AutorisationServiceInterface;
+use gift\appli\core\services\autorisation\AutorisationService;
+use gift\appli\app\provider\authentification\AuthentificationProviderInterface;
+use gift\appli\app\provider\authentification\AuthentificationProvider;
+
+
 class PostAddPrestationBox extends \gift\appli\app\actions\AbstractAction
 {
     private BoxServiceInterface $boxService;
+    private AutorisationServiceInterface $autorisationService;
+    private AuthentificationProviderInterface $provider;
     
     public function __construct(){
         $this->boxService = new BoxService();
+        $this->autorisationService = new AutorisationService();
+        $this->provider = new AuthentificationProvider();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        if(!isset($_SESSION['giftBox_box_courante'])){
-            return $response->withStatus(302)->withHeader('Location', "/");
+        $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $_SESSION['giftBox_box_courante']);
+        if(!$granted){
+            return $response->withStatus(302)->withHeader('Location', "/box/create");
         }
 
         $data = $request->getParsedBody();

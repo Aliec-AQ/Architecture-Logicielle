@@ -42,7 +42,7 @@ footer {
 /* navigation */
 
 .sidenav {
-    height: 100%;
+    height: 90vh;
     width: 0;
     position: fixed;
     z-index: 1;
@@ -50,8 +50,11 @@ footer {
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
+    transition: 0.2s;
+    padding-top : 60px ;
+    display: flex;
+    flex-direction: column;
+    gap : 30px;
 }
 
 .sidenav a {
@@ -80,4 +83,10 @@ footer {
     left: 10px;
     font-size: 30px;
     cursor: pointer;
+}
+
+/* ERROR MESSAGE */
+.error{
+    color: red;
+    font-weight: bolder;
 }

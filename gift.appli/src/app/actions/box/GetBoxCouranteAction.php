@@ -13,11 +13,18 @@ use gift\appli\core\services\box\BoxServiceNotFoundException;
 
 use gift\appli\app\utils\CsrfService;
 
+use gift\appli\core\services\autorisation\AutorisationServiceInterface;
+use gift\appli\core\services\autorisation\AutorisationService;
+use gift\appli\app\provider\authentification\AuthentificationProviderInterface;
+use gift\appli\app\provider\authentification\AuthentificationProvider;
+
 class GetBoxCouranteAction extends \gift\appli\app\actions\AbstractAction 
 {
     
     private string $template;
     private BoxServiceInterface $boxService;
+    private AutorisationServiceInterface $autorisationService;
+    private AuthentificationProviderInterface $provider;
     
     public function __construct(){
         $this->template = 'BoxCourante.twig';
@@ -26,6 +33,7 @@ class GetBoxCouranteAction extends \gift\appli\app\actions\AbstractAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
+
         if(!isset($_SESSION['giftBox_box_courante'])){
             return $response->withStatus(302)->withHeader('Location', "/box/create/");
         }

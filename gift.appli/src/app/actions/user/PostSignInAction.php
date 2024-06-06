@@ -1,31 +1,28 @@
 <?php
-namespace gift\appli\app\actions\box;
+namespace gift\appli\app\actions\user;
 
 use gift\appli\app\utils\CsrfService;
-use gift\appli\core\domain\entites\Box;
-use gift\appli\core\services\box\BoxService;
-use gift\appli\core\services\box\BoxServiceNotFoundException;
-use gift\appli\core\services\catalogue\CatalogueService;
-use gift\appli\core\services\catalogue\CatalogueServiceInterface;
-use gift\appli\core\services\catalogue\CatalogueServiceNotFoundException;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use gift\appli\app\actions\AbstractAction;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Views\Twig;
 
-class PostBoxCreateAction extends \gift\appli\app\actions\AbstractAction 
+use gift\appli\app\provider\authentification\AuthentificationProvider;
+use gift\appli\app\provider\authentification\AuthentificationProviderInterface;
+
+class PostSignInAction extends \gift\appli\app\actions\AbstractAction 
 {
-    private BoxService $boxservice;
+    private AuthentificationProviderInterface $provider;
 
     public function __construct(){
-        $this->boxservice = new BoxService();
+        $this->provider = new AuthentificationProvider();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody();
-
+        
         /* Récupération du token */
         $csrfToken = $data['_csrf_token'] ?? null;
         if (!$csrfToken) {
@@ -39,19 +36,14 @@ class PostBoxCreateAction extends \gift\appli\app\actions\AbstractAction
             throw new HttpBadRequestException($request, 'vérfication CSRF échouée');
         }
 
-        /* Filtre des données */
-        $formData = array_map(function($item) {
-            return htmlspecialchars($item, ENT_QUOTES, 'UTF-8');
-        }, $data);
+        $email = htmlspecialchars($data['email'], ENT_QUOTES, 'UTF-8');
 
-
-        try {
-            $box = $this->boxservice->createBox($formData);
-        } catch (BoxServiceNotFoundException $e) {
-            throw new HttpBadRequestException($request, 'Création de la catégorie échouée');
+        $error = $this->provider->signIn($email, $data['password']);
+        if ($error) {
+            $token = CsrfService::generate();
+            $view = Twig::fromRequest($request);
+            return $view->render($response, 'UserSignIn.twig', ['error' => $error, 'csrf_token' => $token]);
         }
-
-        $_SESSION['giftBox_box_courante'] = $box;
 
         return $response->withStatus(302)->withHeader('Location', "/box/courante/");
     }

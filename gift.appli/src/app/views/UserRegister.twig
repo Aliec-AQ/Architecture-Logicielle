@@ -1,0 +1,22 @@
+{% extends 'index.twig' %}
+{% block content %}
+<h1>Register</h1>
+<form class="displayCard" action="" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="password2">Confirmer le mot de passe</label>
+    <input type="password" id="password2" name="password2" required>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <button type="submit" class="bouton">Register</button>
+</form>
+
+<a href="{{ url_for('signIn') }}">Sign In</a>
+{% endblock %}

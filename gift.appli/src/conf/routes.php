@@ -21,6 +21,11 @@ use gift\appli\app\actions\box\GetBoxCouranteAction;
 use gift\appli\app\actions\box\GetBoxByIdAction;
 use gift\appli\app\actions\box\GetBoxsPredefinisAction;
 
+use gift\appli\app\actions\user\GetRegisterFormAction;
+use gift\appli\app\actions\user\PostRegisterFormAction;
+use gift\appli\app\actions\user\GetSignInAction;
+use gift\appli\app\actions\user\PostSignInAction;
+
 return function( App $app): App {
 
     /* ROUTE ROOT */
@@ -48,6 +53,13 @@ return function( App $app): App {
     $app->get('/boxsPredefinies[/]', GetBoxsPredefinisAction::class)->setName('boxsPredefinies');
     $app->post('/box/addPrestation[/]', PostAddPrestationBox::class)->setName('addPrestationToBox');
     $app->get('/box/courante[/]', GetBoxCouranteAction::class)->setName('boxCourante');
+
+    /* ROUTES USER */
+
+    $app->get('/register[/]', GetRegisterFormAction::class)->setName('register');
+    $app->post('/register[/]', PostRegisterFormAction::class)->setName('registerPost');
+    $app->get('/signIn[/]', GetSignInAction::class)->setName('signIn');
+    $app->post('/signIn[/]', PostSignInAction::class)->setName('signInPost');
 
     return $app;
 };
