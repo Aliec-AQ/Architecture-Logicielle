@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use gift\appli\app\actions\box\GetBoxsAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -53,6 +54,7 @@ return function( App $app): App {
     $app->get('/boxsPredefinies[/]', GetBoxsPredefinisAction::class)->setName('boxsPredefinies');
     $app->post('/box/addPrestation[/]', PostAddPrestationBox::class)->setName('addPrestationToBox');
     $app->get('/box/courante[/]', GetBoxCouranteAction::class)->setName('boxCourante');
+    $app->get('/boxs[/]', GetBoxsAction::class)->setName('boxs');
 
     $app->post('/box/removePrestation/{id}[/]', GetBoxCouranteAction::class);
 

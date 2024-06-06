@@ -1,0 +1,19 @@
+{% extends 'index.twig' %}
+{% block content %}
+
+    {% if boxs is not null %}
+        <h1>Boxs de l'utilisateur</h1>
+        <div class="cardContainer">
+            {% for box in boxs %}
+
+                <a class="card" href="{{ url_for('box') ~ "?id=" ~ box.id }}">
+                    <h2>{{box.libelle}}</h2>
+                    <p>prix : {{box.montant}} €</p>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1>Aucune boxs </h1>
+    {% endif %}
+    <a class="bouton" href="{{ url_for('root') }}">Retour au menu</a>
+{% endblock %}
