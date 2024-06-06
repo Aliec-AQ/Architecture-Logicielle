@@ -44,7 +44,7 @@ class GetPrestationsCategorieAction extends \gift\api\app\actions\AbstractAction
                     'description' => $prestation['description'],
                     'unite' => $prestation['unite'],
                     'tarif' => $prestation['tarif'],
-                    'img' => "/api/img/" . $prestation['img'],
+                    'img' => "/img/" . $prestation['img'],
                     'cat_id' => $prestation['cat_id']
                 ],
                 'links' => [
