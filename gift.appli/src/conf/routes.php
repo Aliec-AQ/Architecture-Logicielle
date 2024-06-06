@@ -54,6 +54,8 @@ return function( App $app): App {
     $app->post('/box/addPrestation[/]', PostAddPrestationBox::class)->setName('addPrestationToBox');
     $app->get('/box/courante[/]', GetBoxCouranteAction::class)->setName('boxCourante');
 
+    $app->post('/box/removePrestation/{id}[/]', GetBoxCouranteAction::class);
+
     /* ROUTES USER */
 
     $app->get('/register[/]', GetRegisterFormAction::class)->setName('register');

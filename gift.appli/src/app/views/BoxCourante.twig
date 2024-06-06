@@ -14,7 +14,7 @@
                 <p class="gift-message">{{ message_kdo }}</p>
             </div>
             {% endif %}
-            <a class="bouton" href="{{ url_for('root') }}">Retour au menu</a>
+            <a class="bouton" href="{{ url_for('listePrestations') }}">Voir les prestations</a>
         </div>
     </section>
     <section class="box-prestations">
@@ -23,14 +23,19 @@
                 <tr class="prestation-row">
                     <th>Prestation</th>
                     <th>Quantité</th>
+                    <th>Prix unitaire</th>
                     <th>Prix</th>
                 </tr>
             </thead>
             <tbody>
                 {% for prestation in prestations %}
                 <tr class="prestation-row">
-                    <td>{{ prestation.libelle }}</td>
+                    <td>
+                        <a href="{{ url_for('prestation', {'id': prestation.id}) }}" class="error">X</a>
+                        {{ prestation.libelle }}
+                    </td>
                     <td>{{ prestation.pivot.quantite }}</td>
+                    <td>{{ prestation.tarif }} €</td>
                     <td>{{ prestation.tarif * prestation.pivot.quantite  }} €</td>
                 </tr>
                 {% endfor %}
@@ -38,6 +43,7 @@
             <tfoot>
                 <tr class="prestation-row">
                     <td><h3>Montant total</h3></td>
+                    <td></td>
                     <td></td>
                     <td>{{ montant }} €</td>
                 </tr>

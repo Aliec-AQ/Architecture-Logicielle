@@ -138,4 +138,65 @@ class BoxService implements BoxServiceInterface {
             throw new BoxServiceNotFoundException("Échec de l'ajout de la prestation au coffret.");
         }
     }
+
+    public function removePrestationToBox(string $prestationId, string $boxId): void {
+        try{
+            if(is_null($prestationId) || is_null($boxId)){
+                throw new BoxServiceNotFoundException("Échec de la suppression de la prestation au coffret.");
+            }
+
+            $box = Box::findOrFail($boxId);
+            $prestation = Prestation::findOrFail($prestationId);
+            
+            // check si la prestation est déjà dans le coffret
+            $existingPrestation = $box->prestations()->where('presta_id', $prestationId)->first();
+
+            if ($existingPrestation) {
+                // supprime la prestation du coffret
+                $box->prestations()->detach($prestation);
+            }
+
+            // met à jour le montant du coffret
+            $totalMontant = 0;
+            foreach ($box->prestations as $prestation) {
+                $totalMontant += $prestation->pivot->quantite * $prestation->tarif;
+            }
+            $box->montant = $totalMontant;
+
+            $box->save();
+        } catch (BoxServiceNotFoundException $e) {
+            throw new BoxServiceNotFoundException("Échec de la suppression de la prestation au coffret.");
+        }
+    }
+
+    public function updateQuantitePrestationToBox(string $prestationId, string $boxId, int $quantite): void {
+        try{
+            if(is_null($prestationId) || is_null($boxId)){
+                throw new BoxServiceNotFoundException("Échec de la mise à jour de la quantité de la prestation au coffret.");
+            }
+
+            $box = Box::findOrFail($boxId);
+            $prestation = Prestation::findOrFail($prestationId);
+            
+            // check si la prestation est déjà dans le coffret
+            $existingPrestation = $box->prestations()->where('presta_id', $prestationId)->first();
+
+            if ($existingPrestation) {
+                // met à jour la quantité de la prestation
+                $existingPrestation->pivot->quantite = $quantite;
+                $existingPrestation->pivot->save();
+            }
+
+            // met à jour le montant du coffret
+            $totalMontant = 0;
+            foreach ($box->prestations as $prestation) {
+                $totalMontant += $prestation->pivot->quantite * $prestation->tarif;
+            }
+            $box->montant = $totalMontant;
+
+            $box->save();
+        } catch (BoxServiceNotFoundException $e) {
+            throw new BoxServiceNotFoundException("Échec de la mise à jour de la quantité de la prestation au coffret.");
+        }
+    }
 }

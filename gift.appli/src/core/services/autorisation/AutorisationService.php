@@ -13,7 +13,7 @@ class AutorisationService implements AutorisationServiceInterface{
     const CREATE_BOX = 2;
     const MODIF_CATALOGUE = 3;
 
-    public function isGranted(?string $id, ?int $action, ?int $box_id = null): bool {     
+    public function isGranted(?string $id, ?int $action, ?string $box_id = null): bool {     
         if(is_null($id) ||is_null($action)){
             return false;
         }
@@ -38,7 +38,7 @@ class AutorisationService implements AutorisationServiceInterface{
         return false;
     }
 
-    private function isOwner(string $id, int $box_id): bool {
+    private function isOwner(string $id, string $box_id): bool {
         if(is_null($box_id)){
             return false;
         }

@@ -9,5 +9,5 @@ namespace gift\appli\core\services\autorisation;
 */
 interface AutorisationServiceInterface {
 
-    public function isGranted(?string $id, ?int $action, ?int $box_id = null): bool;
+    public function isGranted(?string $id, ?int $action, ?string $box_id = null): bool;
 }
