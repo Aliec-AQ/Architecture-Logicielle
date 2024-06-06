@@ -205,7 +205,7 @@ class BoxService implements BoxServiceInterface {
             $box = Box::where('createur_id', $userId)->get();
             return $box->toArray();
         } catch (BoxServiceNotFoundException $e) {
-            throw new BoxServiceNotFoundException("Échec de la récupération des depuis la base de données.");
+            throw new BoxServiceNotFoundException("Échec de la récupération des boxs depuis la base de données.");
         }
     }
 }
