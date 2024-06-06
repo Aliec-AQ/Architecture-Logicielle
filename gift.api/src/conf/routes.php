@@ -21,5 +21,6 @@ return function( App $app): App {
 
     $app->get('/api/categories/{id}/prestations[/]', GetPrestationsCategorieAction::class)->setName('prestationsCategorie');
     $app->get('/api/boxes/{id}[/]', GetBoxByIdAction::class)->setName('boxById');
+
     return $app;
 };

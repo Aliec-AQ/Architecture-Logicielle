@@ -7,7 +7,7 @@ use Slim\Psr7\Response;
 
 gift\api\infrastructure\Eloquent::init(__DIR__ . '/gift.db.conf.ini.dist');
 
-/* application bootstrap */
+/* api bootstrap */
 
 session_start();
 
@@ -21,7 +21,12 @@ $errorMiddleware->setErrorHandler(
     HttpNotFoundException::class,
     function (ServerRequestInterface $request) {
         $response = new Response();
-        $response->getBody()->write(json_encode(['error' => 'Not found']));
+        $response->getBody()->write(json_encode([
+            'type' => 'error',
+            'code' => '404',
+            'message' => 'Ressource non trouvée',
+            'description' => 'La ressource demandée n\'existe pas ou plus'
+            ]));
         return $response->withStatus(404);
     }
 );
