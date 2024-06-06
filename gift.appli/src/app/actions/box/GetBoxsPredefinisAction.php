@@ -4,6 +4,7 @@ namespace gift\appli\app\actions\box;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Views\Twig;
 
 use gift\appli\core\services\box\BoxServiceInterface;
@@ -31,6 +32,9 @@ class GetBoxsPredefinisAction extends \gift\appli\app\actions\AbstractAction
         
         }
 
+        if (empty($boxsPredefinies)) {
+            $boxsPredefinies =null;
+        }
         $view = Twig::fromRequest($request);
         return $view->render($response, 'BoxsPredefinies.twig', ['boxsPredefinies' => $boxsPredefinies]);
     }

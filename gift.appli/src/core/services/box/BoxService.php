@@ -51,7 +51,7 @@ class BoxService implements BoxServiceInterface {
      */
     public function getPredefinedBoxes(): array {
         try{
-            $boxes = Box::where('statut',"=", 5)->get();
+            $boxes = Box::where('createur_id',"=", 2 )->get();
             return $boxes->toArray();
         } catch (BoxServiceNotFoundException $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération des boxes prédéfinis depuis la base de données.");
@@ -197,6 +197,15 @@ class BoxService implements BoxServiceInterface {
             $box->save();
         } catch (BoxServiceNotFoundException $e) {
             throw new BoxServiceNotFoundException("Échec de la mise à jour de la quantité de la prestation au coffret.");
+        }
+    }
+
+    public function getBoxByUserId(string $userId): array {
+        try{
+            $box = Box::where('createur_id', $userId)->get();
+            return $box->toArray();
+        } catch (BoxServiceNotFoundException $e) {
+            throw new BoxServiceNotFoundException("Échec de la récupération des depuis la base de données.");
         }
     }
 }
