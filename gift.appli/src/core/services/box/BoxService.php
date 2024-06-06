@@ -89,6 +89,7 @@ class BoxService implements BoxServiceInterface {
             $box->kdo = isset($data['kdo']) ? 1 : 0;
             $box->statut = 1;
             $box->message_kdo = $data['kdo_message'];
+            $box->createur_id = $data['createur_id'];
             $box->save();
             return $box->id;
         }catch (\Exception){
