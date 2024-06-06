@@ -51,7 +51,7 @@ class BoxService implements BoxServiceInterface {
      */
     public function getPredefinedBoxes(): array {
         try{
-            $boxes = Box::where('createur_id',"=", 2 )->get();
+            $boxes = Box::where('createur_id',"=", null )->get();
             return $boxes->toArray();
         } catch (BoxServiceNotFoundException $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération des boxes prédéfinis depuis la base de données.");
