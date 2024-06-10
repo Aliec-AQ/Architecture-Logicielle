@@ -1,0 +1,16 @@
+{% extends 'index.twig' %}
+{% block content %}
+
+{% if statusCode %}
+    <div class="error">
+        <h2>Error {{ statusCode }}</h2>
+        <p>{{ errorMessage }}</p>
+    </div>
+{% else %}
+    <div class="error">
+        <h2>Error</h2>
+        <p>Une erreur est survenue</p>
+    </div>
+{% endif %}
+
+{% endblock %}

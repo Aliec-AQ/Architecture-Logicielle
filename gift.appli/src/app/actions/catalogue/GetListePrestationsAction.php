@@ -30,7 +30,7 @@ class GetListePrestationsAction extends \gift\appli\app\actions\AbstractAction
 
         try{
             $prestations = $this->catalogueService->getPrestationsSorted($sort);
-        } catch (\CatalogueServiceNotFoundException $e) {
+        } catch (CatalogueServiceNotFoundException $e) {
             throw new HttpNotFoundException($request, "Prestations non trouvées");
         }
 

@@ -33,7 +33,7 @@ class GetPrestationsCategorieAction extends \gift\appli\app\actions\AbstractActi
 
         try{
             $prestations = $this->catalogueService->getPrestationsbyCategorie($id);
-        } catch (\CatalogueServiceNotFoundException $e) {
+        } catch (CatalogueServiceNotFoundException $e) {
             throw new HttpNotFoundException($request, "Prestations non trouvées");
         }
 

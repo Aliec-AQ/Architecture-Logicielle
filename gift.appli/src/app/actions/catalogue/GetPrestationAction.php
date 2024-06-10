@@ -34,7 +34,7 @@ class GetPrestationAction extends \gift\appli\app\actions\AbstractAction
 
         try{
             $prestation = $this->catalogueService->getPrestationById($id);
-        } catch (\CatalogueServiceNotFoundException $e) {
+        } catch (CatalogueServiceNotFoundException $e) {
             throw new HttpNotFoundException($request, "Prestation non trouvée");
         }
         

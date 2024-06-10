@@ -31,7 +31,7 @@ class GetCategorieIdAction extends \gift\appli\app\actions\AbstractAction
 
         try {
             $category = $this->catalogueService->getCategorieById($id);
-        } catch (\CatalogueServiceNotFoundException $e) {
+        } catch (CatalogueServiceNotFoundException $e) {
             throw new HttpNotFoundException($request, "Catégorie non trouvée");
         }
 

@@ -36,7 +36,7 @@ class GetCategorieAction extends \gift\appli\app\actions\AbstractAction
 
         try{
             $categories = $this->catalogueService->getCategories();
-        } catch (\CatalogueServiceNotFoundException $e) {
+        } catch (CatalogueServiceNotFoundException $e) {
             throw new HttpNotFoundException($request, "Catégories non trouvées");
         }
 
