@@ -29,6 +29,22 @@ class BoxService implements BoxServiceInterface {
     }
 
     /**
+     * Récupère une boîte par son token.
+     *
+     * @param string $token Le token de la boîte.
+     * @return array Les données de la boîte.
+     * @throws BoxServiceNotFoundException Si la boîte n'est pas trouvée dans la base de données.
+     */
+    public function getBoxByToken(string $token): array {
+        try{
+            $box = Box::with('prestations')->where('token', $token)->firstOrFail();
+            return $box->toArray();
+        } catch (\Exception $e) {
+            throw new BoxServiceNotFoundException("Échec de la récupération de la box depuis la base de données.");
+        }
+    }
+
+    /**
      * Récupère toutes les boîtes.
      *
      * @return array Les données de toutes les boîtes.
@@ -82,7 +98,7 @@ class BoxService implements BoxServiceInterface {
             }
 
             $box = new Box();
-            $box->token = $data['_csrf_token'];
+            $box->token = "";
             $box->libelle = $data['name'];
             $box->description = $data['description'];
             $box->montant = 0;

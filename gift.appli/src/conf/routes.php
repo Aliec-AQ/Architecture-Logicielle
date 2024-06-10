@@ -25,6 +25,7 @@ use gift\appli\app\actions\box\PostRemovePrestationBoxAction;
 use gift\appli\app\actions\box\PostUpdateQuantiteBoxAction;
 use gift\appli\app\actions\box\PostValidateBoxAction;
 use gift\appli\app\actions\box\PostPayBoxAction;
+use gift\appli\app\actions\box\GetBoxByUrlAction;
 
 use gift\appli\app\actions\user\GetRegisterFormAction;
 use gift\appli\app\actions\user\PostRegisterFormAction;
@@ -59,6 +60,7 @@ return function( App $app): App {
     $app->post('/box/addPrestation[/]', PostAddPrestationBox::class)->setName('addPrestationToBox');
     $app->get('/box/courante[/]', GetBoxCouranteAction::class)->setName('boxCourante');
     $app->get('/boxs[/]', GetBoxsAction::class)->setName('boxs');
+    $app->get('/box/url/{token}[/]', GetBoxByUrlAction::class)->setName('boxUrl');
 
     $app->post('/box/removePrestation/{id}[/]', PostRemovePrestationBoxAction::class)->setName('removePrestationToBox');
     $app->post('/box/updateQuantite/{id}[/]', PostUpdateQuantiteBoxAction::class)->setName('updateQuantiteToBox');

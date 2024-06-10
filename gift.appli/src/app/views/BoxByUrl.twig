@@ -14,7 +14,6 @@
                 <p class="gift-message">{{ message_kdo }}</p>
             </div>
             {% endif %}
-            <a class="bouton" href="{{ url_for('boxsPredefinies') }}">Retour aux boxs prédéfinies</a>
         </div>
     </section>
     <section class="box-prestations">
@@ -23,8 +22,10 @@
                 <tr class="prestation-row">
                     <th>Prestation</th>
                     <th>Quantité</th>
+                    {% if not kdo %}
                     <th>Tarif unitaire</th>
                     <th>Prix</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -32,11 +33,14 @@
                 <tr class="prestation-row">
                     <td>{{ prestation.libelle }}</td>
                     <td>{{ prestation.pivot.quantite }}</td>
+                    {% if not kdo %}
                     <td>{{ prestation.tarif }} €</td>
                     <td>{{ prestation.tarif * prestation.pivot.quantite  }} €</td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
+            {% if not kdo %}
             <tfoot>
                 <tr class="prestation-row">
                     <td><h3>Montant total</h3></td>
@@ -45,6 +49,7 @@
                     <td>{{ montant }} €</td>
                 </tr>
             </tfoot>
+            {% endif %}
         </table>
     </section>
 </div>
