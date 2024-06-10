@@ -52,7 +52,7 @@ class CatalogueService implements CatalogueServiceInterface {
      */
     public function getPrestationById(string $id): array {
         try{
-            $prestation = Prestation::findOrFail($id);
+            $prestation = Prestation::with('categorie')->findOrFail($id);
             return $prestation->toArray();
         } catch (\Exception $e) {
             throw new CatalogueServiceNotFoundException("Échec de la récupération de la prestation depuis la base de données.");

@@ -31,6 +31,10 @@ class GetBoxByIdAction extends \gift\appli\app\actions\AbstractAction
             throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
         }
 
+        if(isset($_SESSION['giftBox_box_courante']) && $_SESSION['giftBox_box_courante'] == $id){
+            return $response->withHeader('Location', '/box/courante')->withStatus(302);
+        }
+
         try{
             $box = $this->boxService->getBoxById($id);
         } catch (BoxServiceNotFoundException $e) {

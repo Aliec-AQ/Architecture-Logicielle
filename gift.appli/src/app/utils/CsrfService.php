@@ -10,6 +10,7 @@ class CsrfService {
 
     public static function check($token){
         if (!isset($_SESSION['giftbox_csrf_token']) || $_SESSION['giftbox_csrf_token'] !== $token) {
+            unset($_SESSION['giftbox_csrf_token']);
             throw new \Exception('CSRF token verification failed');
         }
 

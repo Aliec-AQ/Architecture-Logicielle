@@ -21,6 +21,10 @@ use gift\appli\app\actions\box\PostAddPrestationBox;
 use gift\appli\app\actions\box\GetBoxCouranteAction;
 use gift\appli\app\actions\box\GetBoxByIdAction;
 use gift\appli\app\actions\box\GetBoxsPredefinisAction;
+use gift\appli\app\actions\box\PostRemovePrestationBoxAction;
+use gift\appli\app\actions\box\PostUpdateQuantiteBoxAction;
+use gift\appli\app\actions\box\PostValidateBoxAction;
+use gift\appli\app\actions\box\PostPayBoxAction;
 
 use gift\appli\app\actions\user\GetRegisterFormAction;
 use gift\appli\app\actions\user\PostRegisterFormAction;
@@ -56,7 +60,10 @@ return function( App $app): App {
     $app->get('/box/courante[/]', GetBoxCouranteAction::class)->setName('boxCourante');
     $app->get('/boxs[/]', GetBoxsAction::class)->setName('boxs');
 
-    $app->post('/box/removePrestation/{id}[/]', GetBoxCouranteAction::class);
+    $app->post('/box/removePrestation/{id}[/]', PostRemovePrestationBoxAction::class)->setName('removePrestationToBox');
+    $app->post('/box/updateQuantite/{id}[/]', PostUpdateQuantiteBoxAction::class)->setName('updateQuantiteToBox');
+    $app->post('/box/validate/{id}[/]', PostValidateBoxAction::class)->setName('validateBox');
+    $app->post('/box/pay/{id}[/]', PostPayBoxAction::class)->setName('payBox');
 
     /* ROUTES USER */
 

@@ -51,3 +51,16 @@ Mettre le css qui est en relation avec les formulaires dans ce fichier.
   input:disabled {
       background-color: #eee;
   }
+
+  .button-box{
+    border: none;
+    font-size: medium;
+    font-weight: bolder;
+    transition-duration: 0.2s;
+    cursor: pointer;
+  }
+
+.button-box:hover {
+    background-color: red;
+    color: white;
+}

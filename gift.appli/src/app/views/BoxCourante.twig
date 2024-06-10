@@ -3,18 +3,31 @@
 <div class="box-container">
     <section class="box-info">
         <div class="displayCard">
-            <h2 class="info-title">{{libelle}}</h2>
+            <h2 class="info-title">{{box.libelle}}</h2>
             <div>
                 <h3>Description de la box : </h3>
-                <p class="info-description">{{ description }}</p>
+                <p class="info-description">{{ box.description }}</p>
             </div>
-            {% if  kdo %}
+            {% if  box.kdo %}
             <div class="gift">
                 <h2 class="gift-title">- Cadeau -</h2>
-                <p class="gift-message">{{ message_kdo }}</p>
+                <p class="gift-message">{{ box.message_kdo }}</p>
             </div>
             {% endif %}
+
+            {% if box.statut == 1 %}
+            <form method="post" action="{{ url_for('validateBox', {'id': box.id}) }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <button class="bouton" type="submit">Valider la box</button>
+            </form>
             <a class="bouton" href="{{ url_for('listePrestations') }}">Voir les prestations</a>
+            {% endif %}
+            {% if box.statut == 2 %}
+            <form method="post" action="{{ url_for('payBox', {'id': box.id}) }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <button class="bouton" type="submit">Payer la box</button>
+            </form>
+            {% endif %}
         </div>
     </section>
     <section class="box-prestations">
@@ -28,13 +41,38 @@
                 </tr>
             </thead>
             <tbody>
-                {% for prestation in prestations %}
+                {% for prestation in box.prestations %}
                 <tr class="prestation-row">
                     <td>
-                        <a href="{{ url_for('prestation', {'id': prestation.id}) }}" class="error">X</a>
-                        {{ prestation.libelle }}
+                    <div class="splinter_cell">
+                        {% if box.statut <= 1 %}
+                        <form method="post" action="{{ url_for('removePrestationToBox', {'id': prestation.id}) }}">
+                            <input type="hidden" name="box_id" value="{{ box.id }}">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            <button class="button-box" type="submit">X</button>
+                        </form>
+                        {% endif %}
+                        
+                        <p>
+                            {{ prestation.libelle }}
+                        </p>
+                        </div>
                     </td>
-                    <td>{{ prestation.pivot.quantite }}</td>
+                    <td>
+                        <div class="splinter_cell">
+                            {% if box.statut <= 1 %}
+                            <form method="post" action="{{ url_for('updateQuantiteToBox', {'id': prestation.id}) }}">
+                                <input type="hidden" name="box_id" value="{{ box.id }}">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                <input type="number" name="quantite" value="{{ prestation.pivot.quantite }}" min="0">
+                                <button class="button-box" type="submit">&#10227;</button>
+                            </form>
+                            {% else %}
+                                {{ prestation.pivot.quantite }}
+                            {% endif %}
+                        </div>
+                    </td>
+                    </td>
                     <td>{{ prestation.tarif }} €</td>
                     <td>{{ prestation.tarif * prestation.pivot.quantite  }} €</td>
                 </tr>
@@ -45,7 +83,7 @@
                     <td><h3>Montant total</h3></td>
                     <td></td>
                     <td></td>
-                    <td>{{ montant }} €</td>
+                    <td>{{ box.montant }} €</td>
                 </tr>
             </tfoot>
         </table>

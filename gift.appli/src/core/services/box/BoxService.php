@@ -112,6 +112,11 @@ class BoxService implements BoxServiceInterface {
             }
 
             $box = Box::findOrFail($boxId);
+            
+            if ($box->statut != 1) {
+                throw new BoxServiceNotFoundException("Impossible d'ajouter une prestation à un coffret non modifiable.");
+            }
+
             $prestation = Prestation::findOrFail($prestationId);
             
             // check si la prestation est déjà dans le coffret
@@ -138,7 +143,7 @@ class BoxService implements BoxServiceInterface {
             throw new BoxServiceNotFoundException("Échec de l'ajout de la prestation au coffret.");
         }
     }
-
+    
     public function removePrestationToBox(string $prestationId, string $boxId): void {
         try{
             if(is_null($prestationId) || is_null($boxId)){
@@ -168,7 +173,7 @@ class BoxService implements BoxServiceInterface {
             throw new BoxServiceNotFoundException("Échec de la suppression de la prestation au coffret.");
         }
     }
-
+    
     public function updateQuantitePrestationToBox(string $prestationId, string $boxId, int $quantite): void {
         try{
             if(is_null($prestationId) || is_null($boxId)){
@@ -182,9 +187,14 @@ class BoxService implements BoxServiceInterface {
             $existingPrestation = $box->prestations()->where('presta_id', $prestationId)->first();
 
             if ($existingPrestation) {
-                // met à jour la quantité de la prestation
-                $existingPrestation->pivot->quantite = $quantite;
-                $existingPrestation->pivot->save();
+                if ($quantite <= 0) {
+                    // supprime la prestation du coffret
+                    $box->prestations()->detach($prestation);
+                } else {
+                    // met à jour la quantité de la prestation
+                    $existingPrestation->pivot->quantite = $quantite;
+                    $existingPrestation->pivot->save();
+                }
             }
 
             // met à jour le montant du coffret
@@ -206,6 +216,53 @@ class BoxService implements BoxServiceInterface {
             return $box->toArray();
         } catch (BoxServiceNotFoundException $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération des boxs depuis la base de données.");
+        }
+    }
+
+    public function validateBox(string $boxId): bool {
+        try {
+            $box = Box::findOrFail($boxId);
+    
+            // Vérifie que le coffret n'est pas déjà validé
+            if ($box->statut == 2) {
+                throw new BoxServiceNotFoundException("Le coffret est déjà validé.");
+            }
+    
+            // Vérifie que le coffret contient au moins 2 prestations de 2 catégories différentes
+            $categories = [];
+            foreach ($box->prestations as $prestation) {
+                $categories[] = $prestation->categorie;
+            }
+            if (count($box->prestations) < 2 || count(array_unique($categories)) < 2) {
+                throw new BoxServiceNotFoundException("Le coffret doit contenir au moins 2 prestations de 2 catégories différentes pour être validé.");
+            }
+    
+            // Marque le coffret comme validé
+            $box->statut = 2;
+            $box->save();
+    
+            return true;
+        } catch (BoxServiceNotFoundException $e) {
+            throw new BoxServiceNotFoundException($e->getMessage());
+        }
+    }
+
+    public function payBox(string $boxId): bool {
+        try {
+            $box = Box::findOrFail($boxId);
+    
+            // Vérifie que le coffret est validé
+            if ($box->statut != 2) {
+                throw new BoxServiceNotFoundException("Le coffret doit être validé avant d'être payé.");
+            }
+    
+            // Marque le coffret comme payé
+            $box->statut = 3;
+            $box->save();
+    
+            return true;
+        } catch (BoxServiceNotFoundException $e) {
+            throw new BoxServiceNotFoundException($e->getMessage());
         }
     }
 }
