@@ -40,9 +40,18 @@
 - Maxime : N/A (bientôt) 
 
 
-Liste des fonctionnalités restantantes:
+
+
+
+# to do 
+### Liste des fonctionnalités restantantes:
 - 13
 - 14
 - 19
 - 20
 
+### autres 
+- middleware pour les erreurs courantes 404 400 503
+- bouton pour definir une box comme box courante 
+- page payer 
+- les modifications d'une prestation
