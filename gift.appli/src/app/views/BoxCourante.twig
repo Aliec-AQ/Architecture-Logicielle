@@ -28,6 +28,12 @@
                 <button class="bouton" type="submit">Payer la box</button>
             </form>
             {% endif %}
+            {% if box.statut == 3 and box.token == "" %}
+            <form method="post" action="{{ url_for('generateUrlBox', {'id': box.id}) }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <button class="bouton" type="submit">Generate URL</button>
+            </form>
+            {% endif %}
         </div>
     </section>
     <section class="box-prestations">

@@ -26,6 +26,7 @@ use gift\appli\app\actions\box\PostUpdateQuantiteBoxAction;
 use gift\appli\app\actions\box\PostValidateBoxAction;
 use gift\appli\app\actions\box\PostPayBoxAction;
 use gift\appli\app\actions\box\GetBoxByUrlAction;
+use gift\appli\app\actions\box\PostGenerateBoxUrlAction;
 
 use gift\appli\app\actions\user\GetRegisterFormAction;
 use gift\appli\app\actions\user\PostRegisterFormAction;
@@ -49,7 +50,7 @@ return function( App $app): App {
     /* ROUTES PRESTATION */
 
     $app->get('/prestation[/]', GetPrestationAction::class)->setName('prestation');
-    $app->get('/listePrestations[/]', GetListePrestationsAction::class)->setName('listePrestations');
+    $app->get('/liste-prestations[/]', GetListePrestationsAction::class)->setName('listePrestations');
 
     /* ROUTES BOX */
 
@@ -66,6 +67,7 @@ return function( App $app): App {
     $app->post('/box/updateQuantite/{id}[/]', PostUpdateQuantiteBoxAction::class)->setName('updateQuantiteToBox');
     $app->post('/box/validate/{id}[/]', PostValidateBoxAction::class)->setName('validateBox');
     $app->post('/box/pay/{id}[/]', PostPayBoxAction::class)->setName('payBox');
+    $app->post('/box/generateUrl/{id}[/]', PostGenerateBoxUrlAction::class)->setName('generateUrlBox');
 
     /* ROUTES USER */
 

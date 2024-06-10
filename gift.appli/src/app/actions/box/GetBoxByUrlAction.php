@@ -39,6 +39,6 @@ class GetBoxByUrlAction extends \gift\appli\app\actions\AbstractAction
         }
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, $box);
+        return $view->render($response, $this->template, ['box' => $box, 'url' => $request->getUri()]);
     }
 }

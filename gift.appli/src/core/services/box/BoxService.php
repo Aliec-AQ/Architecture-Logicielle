@@ -291,4 +291,21 @@ class BoxService implements BoxServiceInterface {
             throw new BoxServiceNotFoundException($e->getMessage());
         }
     }
+
+    public function generateUrl($id, $token){
+        try {
+            $box = Box::findOrFail($id);
+            
+            // vérefie que le coffret n'a pas déjà un token ou n'est pas payé
+            if ($box->token != "" || $box->statut != 3) {
+                throw new BoxServiceNotFoundException("Un URL a déjà été généré pour ce coffret ou le coffret n'est pas encore payé");
+            }
+
+            $box->token = $token;
+            $box->save();
+            return $box;
+        } catch (\Exception $e) {
+            throw new BoxServiceNotFoundException($e->getMessage());
+        }
+    }
 }

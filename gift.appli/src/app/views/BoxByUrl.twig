@@ -3,17 +3,20 @@
 <div class="box-container">
     <section class="box-info">
         <div class="displayCard">
-            <h2 class="info-title">{{libelle}}</h2>
+            <h2 class="info-title">{{box.libelle}}</h2>
             <div>
                 <h3>Description de la box : </h3>
-                <p class="info-description">{{ description }}</p>
+                <p class="info-description">{{ box.description }}</p>
             </div>
-            {% if  kdo %}
+            {% if  box.kdo %}
             <div class="gift">
                 <h2 class="gift-title">- Cadeau -</h2>
-                <p class="gift-message">{{ message_kdo }}</p>
+                <p class="gift-message">{{ box.message_kdo }}</p>
             </div>
             {% endif %}
+            <div class="copy-url">
+                <button class="bouton" onclick="copyUrl('{{ url }}')">Copy URL</button>
+            </div>
         </div>
     </section>
     <section class="box-prestations">
@@ -22,35 +25,57 @@
                 <tr class="prestation-row">
                     <th>Prestation</th>
                     <th>Quantité</th>
-                    {% if not kdo %}
+                    {% if not box.kdo %}
                     <th>Tarif unitaire</th>
                     <th>Prix</th>
                     {% endif %}
                 </tr>
             </thead>
             <tbody>
-                {% for prestation in prestations %}
+                {% for prestation in box.prestations %}
                 <tr class="prestation-row">
                     <td>{{ prestation.libelle }}</td>
                     <td>{{ prestation.pivot.quantite }}</td>
-                    {% if not kdo %}
+                    {% if not box.kdo %}
                     <td>{{ prestation.tarif }} €</td>
                     <td>{{ prestation.tarif * prestation.pivot.quantite  }} €</td>
                     {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
-            {% if not kdo %}
+            {% if not box.kdo %}
             <tfoot>
                 <tr class="prestation-row">
                     <td><h3>Montant total</h3></td>
                     <td></td>
                     <td></td>
-                    <td>{{ montant }} €</td>
+                    <td>{{ box.montant }} €</td>
                 </tr>
             </tfoot>
             {% endif %}
         </table>
     </section>
 </div>
+
+<script>
+function copyUrl(url) {
+
+  var tempInput = document.createElement("input");
+  tempInput.value = url;
+  document.body.appendChild(tempInput);
+
+
+  tempInput.select();
+  tempInput.setSelectionRange(0, 99999); 
+
+
+  document.execCommand("copy");
+
+
+  document.body.removeChild(tempInput);
+
+  alert("Copied the URL: " + url);
+}
+</script>
+
 {% endblock %}
