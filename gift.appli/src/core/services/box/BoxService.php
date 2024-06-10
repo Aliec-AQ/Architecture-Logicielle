@@ -91,6 +91,16 @@ class BoxService implements BoxServiceInterface {
             $box->message_kdo = $data['kdo_message'];
             $box->createur_id = $data['createur_id'];
             $box->save();
+
+            //ajout des prestations de la box predefinie
+            if($data['predefinie'] != "aucune"){
+                $prestations = Box::findOrFail($data['predefinie'])->prestations;
+                foreach ($prestations as $prestation) {
+                    $box->prestations()->attach($prestation, ['quantite' => $prestation->pivot->quantite]);
+                }
+            }
+
+
             return $box->id;
         }catch (\Exception){
             throw new BoxServiceNotFoundException();

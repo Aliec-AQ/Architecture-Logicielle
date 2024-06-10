@@ -2,6 +2,7 @@
 namespace gift\appli\app\actions\box;
 
 use gift\appli\app\utils\CsrfService;
+use gift\appli\core\services\box\BoxService;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use gift\appli\app\actions\AbstractAction;
@@ -18,9 +19,12 @@ class GetBoxCreateAction extends \gift\appli\app\actions\AbstractAction
     private AuthentificationProviderInterface $provider;
     private AutorisationServiceInterface $autorisationService;
 
+    private BoxService $boxService;
+
     public function __construct(){
         $this->provider = new AuthentificationProvider();
         $this->autorisationService = new AutorisationService();
+        $this->boxService = new BoxService();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
@@ -32,7 +36,13 @@ class GetBoxCreateAction extends \gift\appli\app\actions\AbstractAction
             return $response->withStatus(302)->withHeader('Location', "/register");
         }
 
+        try {
+            $predefinies = $this->boxService->getPredefinedBoxes();
+        } catch (\Exception $e) {
+            return $response->withStatus(500)->withHeader('Location', "/error");
+        }
+
         $view = Twig::fromRequest($request);
-        return $view->render($response, 'BoxCreate.twig', ['csrf_token' => $token]);
+        return $view->render($response, 'BoxCreate.twig', ['csrf_token' => $token, 'predefinies' => $predefinies]);
     }
 }
