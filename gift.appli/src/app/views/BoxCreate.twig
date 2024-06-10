@@ -17,7 +17,11 @@
     <select id="predefinie" name="predefinie">
         <option value="aucune">Aucune</option>
         {% for predef in predefinies %}
-            <option value="{{ predef.id }}"> {{ predef.libelle }} </option>
+            {% if predef.id == idPredefinie %}
+                <option value="{{ predef.id }}" selected> {{ predef.libelle }} </option>
+            {% else %}
+                <option value="{{ predef.id }}"> {{ predef.libelle }} </option>
+            {% endif %}
         {% endfor %}
     </select>
     <button type="submit" class="bouton">Créer</button>

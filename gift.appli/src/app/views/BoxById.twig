@@ -3,18 +3,21 @@
 <div class="box-container">
     <section class="box-info">
         <div class="displayCard">
-            <h2 class="info-title">{{libelle}}</h2>
+            <h2 class="info-title">{{box.libelle}}</h2>
             <div>
                 <h3>Description de la box : </h3>
-                <p class="info-description">{{ description }}</p>
+                <p class="info-description">{{ box.description }}</p>
             </div>
-            {% if  kdo %}
+            {% if  box.kdo %}
             <div class="gift">
                 <h2 class="gift-title">- Cadeau -</h2>
-                <p class="gift-message">{{ message_kdo }}</p>
+                <p class="gift-message">{{ box.message_kdo }}</p>
             </div>
             {% endif %}
-            <a class="bouton" href="{{ url_for('boxsPredefinies') }}">Retour aux boxs prédéfinies</a>
+            {% if estPredefinie %}
+                <a class="bouton" href="{{ url_for('boxCreate') ~ "?idPredefinie=" ~ box.id }}">Créer une box à partir de celle-ci</a>
+                <a class="bouton" href="{{ url_for('boxsPredefinies') }}">Retour aux boxs prédéfinies</a>
+            {% endif %}
         </div>
     </section>
     <section class="box-prestations">
@@ -28,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for prestation in prestations %}
+                {% for prestation in box.prestations %}
                 <tr class="prestation-row">
                     <td>{{ prestation.libelle }}</td>
                     <td>{{ prestation.pivot.quantite }}</td>
@@ -42,7 +45,7 @@
                     <td><h3>Montant total</h3></td>
                     <td></td>
                     <td></td>
-                    <td>{{ montant }} €</td>
+                    <td>{{ box.montant }} €</td>
                 </tr>
             </tfoot>
         </table>

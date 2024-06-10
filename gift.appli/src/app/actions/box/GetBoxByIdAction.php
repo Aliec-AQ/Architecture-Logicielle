@@ -41,7 +41,13 @@ class GetBoxByIdAction extends \gift\appli\app\actions\AbstractAction
             throw new HttpNotFoundException($request, "Boîte non trouvée");
         }
 
+        try {
+            $isPredefinie = $this->boxService->isPredefinie($id);
+        }catch (\Exception $e) {
+            return $response->withStatus(500)->withHeader('Location', "/error");
+        }
+
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, $box);
+        return $view->render($response, $this->template, ['box' => $box, 'estPredefinie' => $isPredefinie]);
     }
 }

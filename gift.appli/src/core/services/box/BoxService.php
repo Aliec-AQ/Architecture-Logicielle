@@ -308,4 +308,13 @@ class BoxService implements BoxServiceInterface {
             throw new BoxServiceNotFoundException($e->getMessage());
         }
     }
+
+    public function isPredefinie($id){
+        try {
+            $box = Box::findOrFail($id);
+            return $box->createur_id == null;
+        } catch (\Exception $e) {
+            throw new BoxServiceNotFoundException($e->getMessage());
+        }
+    }
 }

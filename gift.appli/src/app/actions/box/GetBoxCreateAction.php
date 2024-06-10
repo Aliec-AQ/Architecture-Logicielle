@@ -42,7 +42,11 @@ class GetBoxCreateAction extends \gift\appli\app\actions\AbstractAction
             return $response->withStatus(500)->withHeader('Location', "/error");
         }
 
+        $idPredefinie = $request->getQueryParams()['idPredefinie'] ?? null;
+
+
+
         $view = Twig::fromRequest($request);
-        return $view->render($response, 'BoxCreate.twig', ['csrf_token' => $token, 'predefinies' => $predefinies]);
+        return $view->render($response, 'BoxCreate.twig', ['csrf_token' => $token, 'predefinies' => $predefinies, 'idPredefinie' => $idPredefinie ?? null]);
     }
 }
