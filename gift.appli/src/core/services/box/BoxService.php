@@ -23,7 +23,7 @@ class BoxService implements BoxServiceInterface {
         try{
             $box = Box::with('prestations')->findOrFail($id);
             return $box->toArray();
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération de la box depuis la base de données.");
         }
     }
@@ -38,7 +38,7 @@ class BoxService implements BoxServiceInterface {
         try{
             $boxes = Box::all();
             return $boxes->toArray();
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération des boxes depuis la base de données.");
         }
     }
@@ -53,7 +53,7 @@ class BoxService implements BoxServiceInterface {
         try{
             $boxes = Box::where('createur_id',"=", null )->get();
             return $boxes->toArray();
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération des boxes prédéfinis depuis la base de données.");
         }
     }
@@ -139,7 +139,7 @@ class BoxService implements BoxServiceInterface {
             $box->montant = $totalMontant;
 
             $box->save();
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException("Échec de l'ajout de la prestation au coffret.");
         }
     }
@@ -169,7 +169,7 @@ class BoxService implements BoxServiceInterface {
             $box->montant = $totalMontant;
 
             $box->save();
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException("Échec de la suppression de la prestation au coffret.");
         }
     }
@@ -205,7 +205,7 @@ class BoxService implements BoxServiceInterface {
             $box->montant = $totalMontant;
 
             $box->save();
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException("Échec de la mise à jour de la quantité de la prestation au coffret.");
         }
     }
@@ -214,7 +214,7 @@ class BoxService implements BoxServiceInterface {
         try{
             $box = Box::where('createur_id', $userId)->get();
             return $box->toArray();
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException("Échec de la récupération des boxs depuis la base de données.");
         }
     }
@@ -242,7 +242,7 @@ class BoxService implements BoxServiceInterface {
             $box->save();
     
             return true;
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException($e->getMessage());
         }
     }
@@ -261,7 +261,7 @@ class BoxService implements BoxServiceInterface {
             $box->save();
     
             return true;
-        } catch (BoxServiceNotFoundException $e) {
+        } catch (\Exception $e) {
             throw new BoxServiceNotFoundException($e->getMessage());
         }
     }
