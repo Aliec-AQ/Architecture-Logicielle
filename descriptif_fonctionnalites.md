@@ -1,5 +1,7 @@
 # descriptif des fonctionnalités réalisées
 
+
+# APP: 
 ## Afficher la liste des prestations
 Pour afficher la liste des prestations, il y a 2 moyens,
 le premier est d'y accéder par la route "/listePrestations" et
@@ -86,18 +88,30 @@ l'autre moyen est de cliquer sur l'option "box prédéfinies" du menu de l'appli
 Toutes les box prédéfinies vont alors s'afficher de façon identique avec nom, prix.
 Vous pouvez cliquer sur une box pour en afficher le détail.
 
+
+# API :
+
 ## Liste des prestations 
-Pour afficher la liste des prestations, il y a 2 moyens,
-le premier est d'y accéder par la route "/listePrestations" et
-l'autre moyen est de cliquer sur l'option "prestations" du menu de l'application.
+Pour recevoir la liste des prestations au format JSON, il faut faire une requête GET sur la route "/api/prestations".
+Les prestations contiennent un lien vers la prestation par rapport à son id ainsi qu'un lien vers l'image qui lui est associée.
 
 ## Liste des catégories
-Pour afficher la liste des catégories, il y a 2 moyens,
-le premier est d'y accéder par la route "/categories" et
-l'autre moyen est de cliquer sur l'option "Categories" du menu de l'application.
+Pour recevoir la liste des catégories au format JSON, il faut faire une requête GET sur la route "/api/categories".
+Les catégories contiennent un lien vers la catégorie par rapport à son id ainsi qu'un lien vers la liste des prestations
+de la catégorie.
 
 ## Liste des prestations par catégorie
-Pour afficher la liste des prestations par catégorie, il y a 2 moyens,
-le premier est d'y accéder par la route "/categorie/{id categorie}/prestations" et
-l'autre moyen est de cliquer sur le bouton "voir prestations" sur la page de détail d'une catégorie.
-Pour afficher le détail d'une catégorie, il suffit de cliquer sur une catégorie dans la liste des catégories.
+Pour recevoir la liste des prestations d'une catégorie au format JSON, il faut faire une requête GET sur la route "/api/categorie/{id catégorie}/prestations".
+La liste des prestations se présente de la même manière que la liste des prestations de la route "/api/prestations".
+
+## Accès à un coffret
+Pour accéder à un coffret, il faut faire une requête GET sur la route "/api/boxes/{id box}".
+Le coffret contient directement la liste des prestations qui le composent.
+
+## Affichage d'une presation par son id
+Pour afficher une prestation par son id, il faut faire une requête GET sur la route "/api/prestation/{id prestation}".
+Le contenu de la prestation contient unee uri pour accéder à son image.
+
+## Affichage d'une catégorie par son id
+Pour afficher une catégorie par son id, il faut faire une requête GET sur la route "/api/categorie/{id catégorie}".
+Le contenu de la catégorie contient une uri pour accéder à la liste des prestations de la catégorie.
