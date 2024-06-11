@@ -7,8 +7,6 @@ use gift\appli\core\domain\entites\User;
 * Service d'authentification pour gérer les utilisateurs.
 */
 class AuthentificationService implements AuthentificationServiceInterface{
-    private const ROLE_USER = 1;
-    private const ROLE_ADMIN = 100; 
 
     public function register(string $email, string $password): array {        
         // Vérifie si l'email est déjà utilisé
@@ -22,7 +20,7 @@ class AuthentificationService implements AuthentificationServiceInterface{
         }
         
         $user = new User();
-        $user->role = self::ROLE_USER;
+        $user->role = User::ROLE_USER;
         $user->user_id = $email;
         $user->password = password_hash($password, PASSWORD_DEFAULT);
         

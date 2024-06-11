@@ -1,23 +1,21 @@
 <?php
+
 namespace gift\appli\app\actions\box;
 
 use gift\appli\app\utils\CsrfService;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use gift\appli\app\actions\AbstractAction;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Views\Twig;
-
 use gift\appli\core\domain\entites\Box;
 use gift\appli\core\services\box\BoxService;
 use gift\appli\core\services\box\BoxServiceNotFoundException;
-
 use gift\appli\core\services\autorisation\AutorisationServiceInterface;
 use gift\appli\core\services\autorisation\AutorisationService;
 use gift\appli\app\provider\authentification\AuthentificationProviderInterface;
 use gift\appli\app\provider\authentification\AuthentificationProvider;
 
-class PostValidateBoxAction extends \gift\appli\app\actions\AbstractAction 
+class PostDefinirCouranteAction extends \gift\appli\app\actions\AbstractAction 
 {
     private BoxService $boxservice;
     private AuthentificationProviderInterface $provider;
@@ -39,31 +37,14 @@ class PostValidateBoxAction extends \gift\appli\app\actions\AbstractAction
         }
 
         $data = $request->getParsedBody();
-        
+
         $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $id);
         if(!$granted){
             return $response->withStatus(302)->withHeader('Location', "/boxs/courante");
         }
 
-        /* Récupération du token */
-        $csrfToken = $data['_csrf_token'] ?? null;
-        if (!$csrfToken) {
-            throw new HttpBadRequestException($request, 'CSRF token manquant');
-        }
+        $_SESSION['giftBox_box_courante'] = $id;
 
-        /* Vérification du token CSRF */
-        try {
-            CsrfService::check($csrfToken);
-        } catch (\Exception $e) {
-            throw new HttpBadRequestException($request, 'vérfication CSRF échouée');
-        }
-
-        try {
-            $box = $this->boxservice->validateBox($id);
-        } catch (BoxServiceNotFoundException $e) {
-            throw new HttpBadRequestException($request, 'Erreur lors de la validation de la box');
-        }
-
-        return $response->withStatus(302)->withHeader('Location', "/boxs/courante/");
+        return $response->withStatus(302)->withHeader('Location', "/boxs/courante");
     }
 }

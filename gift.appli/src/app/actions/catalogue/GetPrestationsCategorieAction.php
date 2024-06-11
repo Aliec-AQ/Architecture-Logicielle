@@ -30,7 +30,7 @@ class GetPrestationsCategorieAction extends \gift\appli\app\actions\AbstractActi
         if (is_null($id)) {
             throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
         }
-
+        
         try{
             $prestations = $this->catalogueService->getPrestationsbyCategorie($id);
         } catch (CatalogueServiceNotFoundException $e) {

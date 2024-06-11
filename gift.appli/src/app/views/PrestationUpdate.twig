@@ -1,0 +1,33 @@
+{% extends 'index.twig' %}
+{% block content %}
+
+<form class="displayCard" action="{{ url_for('prestationUpdatePost', {'id': prestation.id}) }}" method="POST">
+    <h1>Modifier la prestation</h1>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+    <label for="libelle">Libellé :</label>
+    <input type="text" id="libelle" name="libelle" value="{{ prestation.libelle }}" required>
+
+    <label for="img">Image :</label>
+    <input type="text" id="img" name="img" value="{{ prestation.img }}" required>
+
+    <label for="description">Description :</label>
+    <textarea id="description" name="description" required>{{ prestation.description }}</textarea>
+
+    <label for="unite">Unités :</label>
+    <input type="text" id="unite" name="unite" value="{{ prestation.unite }}">
+
+    <label for="categorie">Catégorie :</label>
+    <select id="categorie" name="categorie" required>
+        {% for categorie in categories %}
+            <option value="{{ categorie.id }}" {% if categorie.id == prestation.cat_id %}selected{% endif %}>{{ categorie.libelle }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="tarif">Prix :</label>
+    <input type="number" id="tarif" name="tarif" min="0" step="0.01" value="{{ prestation.tarif }}" required>
+
+    <button type="submit" class="bouton">Modifier la prestation</button>
+</form>
+
+{% endblock %}

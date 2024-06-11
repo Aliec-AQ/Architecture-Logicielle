@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 
 class Box extends Model {
+    const EN_COURS = 1;
+    const VALIDE = 2;
+    const PAYE = 3;
 
     use HasUuids;
     protected $table = 'box';

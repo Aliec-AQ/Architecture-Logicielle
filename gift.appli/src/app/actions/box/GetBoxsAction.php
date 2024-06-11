@@ -38,7 +38,7 @@ class GetBoxsAction extends AbstractAction
         if($this->provider->isSignedIn()){
             $user = $this->provider->getSignedInUser();
         } else {
-            return $response->withStatus(302)->withHeader('Location', "/signIn/");
+            return $response->withStatus(302)->withHeader('Location', "/sign-in/");
         }
 
 

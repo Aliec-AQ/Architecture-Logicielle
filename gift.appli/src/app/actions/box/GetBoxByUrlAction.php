@@ -26,7 +26,7 @@ class GetBoxByUrlAction extends \gift\appli\app\actions\AbstractAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $token = $args['token'];
+        $token = $request->getQueryParams()['box'] ?? null;
 
         if (is_null($token)) {
             throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
@@ -39,6 +39,6 @@ class GetBoxByUrlAction extends \gift\appli\app\actions\AbstractAction
         }
 
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, ['box' => $box, 'url' => $request->getUri()]);
+        return $view->render($response, $this->template, ['box' => $box]);
     }
 }

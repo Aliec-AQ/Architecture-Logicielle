@@ -32,10 +32,11 @@ class PostRemovePrestationBoxAction extends \gift\appli\app\actions\AbstractActi
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody();
-        
-        $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $data['box_id']);
+        $boxId = $args['id'];
+
+        $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $boxId);
         if(!$granted){
-            return $response->withStatus(302)->withHeader('Location', "/box/courante");
+            return $response->withStatus(302)->withHeader('Location', "/boxs/courante");
         }
 
         /* Récupération du token */
@@ -52,18 +53,18 @@ class PostRemovePrestationBoxAction extends \gift\appli\app\actions\AbstractActi
         }
 
         /* Vérification paramètres */
-        $id = $args['id'];
+        $prestaId = $args['id-presta'];
 
-        if (is_null($id)) {
-            throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
+        if (is_null($prestaId)) {
+            throw new HttpBadRequestException($request, "Identifiant de la prestation manquant");
         }
 
         try {
-            $box = $this->boxservice->removePrestationToBox($id, $data['box_id']);
+            $box = $this->boxservice->removePrestationToBox($prestaId, $boxId);
         } catch (BoxServiceNotFoundException $e) {
             throw new HttpBadRequestException($request, 'Supprimer prestation pas possible');
         }
 
-        return $response->withStatus(302)->withHeader('Location', "/box/courante/");
+        return $response->withStatus(302)->withHeader('Location', "/boxs/courante/");
     }
 }

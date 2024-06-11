@@ -35,7 +35,7 @@ class GetBoxCouranteAction extends \gift\appli\app\actions\AbstractAction
     {
 
         if(!isset($_SESSION['giftBox_box_courante'])){
-            return $response->withStatus(302)->withHeader('Location', "/box/create/");
+            return $response->withStatus(302)->withHeader('Location', "/boxs/create/");
         }
 
         $token = CsrfService::generate();
@@ -48,7 +48,10 @@ class GetBoxCouranteAction extends \gift\appli\app\actions\AbstractAction
             throw new HttpNotFoundException($request, "Box non trouvée dans la base de données");
         }
 
+        $uri= $request->getUri();
+        $url = $uri->getScheme() . "://". $uri->getHost(). ":". $uri->getPort() . "/boxs/url/?box=".$box['token'];
+
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, ['box' => $box, 'csrf_token' => $token]);
+        return $view->render($response, $this->template, ['box' => $box, 'csrf_token' => $token, 'url' => $url]);
     }
 }

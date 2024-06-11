@@ -33,7 +33,7 @@ class PostAddPrestationBox extends \gift\appli\app\actions\AbstractAction
     {
         $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $_SESSION['giftBox_box_courante']);
         if(!$granted){
-            return $response->withStatus(302)->withHeader('Location', "/box/create");
+            return $response->withStatus(302)->withHeader('Location', "/boxs/create");
         }
 
         $data = $request->getParsedBody();
@@ -51,8 +51,15 @@ class PostAddPrestationBox extends \gift\appli\app\actions\AbstractAction
             throw new HttpBadRequestException($request, 'vérfication CSRF échouée');
         }
 
+        /* Vérification paramètres */
+        $prestaId = $args['id-presta'];
+
+        if (is_null($prestaId)) {
+            throw new HttpBadRequestException($request, "Identifiant de la prestation manquant");
+        }
+
         /* Filtre des données */
-        $prestationId = htmlspecialchars($data['prestationId'], ENT_QUOTES, 'UTF-8');
+        $prestationId = htmlspecialchars($prestaId, ENT_QUOTES, 'UTF-8');
         $boxId = $_SESSION['giftBox_box_courante'];
 
 
@@ -62,7 +69,7 @@ class PostAddPrestationBox extends \gift\appli\app\actions\AbstractAction
             throw new HttpBadRequestException($request, 'Ajout de la prestation échouée');
         }
 
-        $url = "/listePrestations/";
+        $url = "/prestations/liste/";
         return $response->withStatus(302)->withHeader('Location', $url);
     }
 }

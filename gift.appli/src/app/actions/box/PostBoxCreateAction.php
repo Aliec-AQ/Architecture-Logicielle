@@ -69,6 +69,6 @@ class PostBoxCreateAction extends \gift\appli\app\actions\AbstractAction
 
         $_SESSION['giftBox_box_courante'] = $box;
 
-        return $response->withStatus(302)->withHeader('Location', "/box/courante/");
+        return $response->withStatus(302)->withHeader('Location', "/boxs/courante/");
     }
 }

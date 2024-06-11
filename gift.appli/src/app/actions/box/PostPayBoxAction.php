@@ -42,7 +42,7 @@ class PostPayBoxAction extends \gift\appli\app\actions\AbstractAction
         
         $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $id);
         if(!$granted){
-            return $response->withStatus(302)->withHeader('Location', "/box/courante");
+            return $response->withStatus(302)->withHeader('Location', "/boxs/courante");
         }
 
         /* Récupération du token */
@@ -64,6 +64,6 @@ class PostPayBoxAction extends \gift\appli\app\actions\AbstractAction
             throw new HttpBadRequestException($request, 'Erreur lors du paiement de la box');
         }
 
-        return $response->withStatus(302)->withHeader('Location', "/box/courante/");
+        return $response->withStatus(302)->withHeader('Location', "/boxs/courante/");
     }
 }

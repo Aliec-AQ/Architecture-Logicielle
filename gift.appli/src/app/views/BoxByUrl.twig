@@ -1,81 +1,114 @@
 {% extends 'index.twig' %}
+
 {% block content %}
-<div class="box-container">
-    <section class="box-info">
-        <div class="displayCard">
-            <h2 class="info-title">{{box.libelle}}</h2>
-            <div>
-                <h3>Description de la box : </h3>
-                <p class="info-description">{{ box.description }}</p>
+    <div class="invoice-box">
+        <div class="invoice-header">
+            <h2>{{ box.libelle }}</h2>
+            <div class="description">
+                <h3>Description:</h3>
+                <p>{{ box.description }}</p>
             </div>
-            {% if  box.kdo %}
-            <div class="gift">
-                <h2 class="gift-title">- Cadeau -</h2>
-                <p class="gift-message">{{ box.message_kdo }}</p>
-            </div>
+            {% if box.kdo %}
+                <div class="gift">
+                    <h2>Cadeau</h2>
+                    <p>{{ box.message_kdo }}</p>
+                </div>
             {% endif %}
-            <div class="copy-url">
-                <button class="bouton" onclick="copyUrl('{{ url }}')">Copy URL</button>
-            </div>
         </div>
-    </section>
-    <section class="box-prestations">
-        <table class="prestations-table">
+        <table class="invoice-table">
             <thead>
-                <tr class="prestation-row">
+                <tr>
                     <th>Prestation</th>
-                    <th>Quantité</th>
                     {% if not box.kdo %}
-                    <th>Tarif unitaire</th>
-                    <th>Prix</th>
+                        <th>Prix unitaire</th>
+                    {% endif %}
+                    <th>Quantite</th>
+                    {% if not box.kdo %}  
+                        <th>Total</th>
                     {% endif %}
                 </tr>
             </thead>
             <tbody>
                 {% for prestation in box.prestations %}
-                <tr class="prestation-row">
-                    <td>{{ prestation.libelle }}</td>
-                    <td>{{ prestation.pivot.quantite }}</td>
-                    {% if not box.kdo %}
-                    <td>{{ prestation.tarif }} €</td>
-                    <td>{{ prestation.tarif * prestation.pivot.quantite  }} €</td>
-                    {% endif %}
-                </tr>
+                    <tr>
+                        <td>{{ prestation.libelle }}</td>
+                        {% if not box.kdo %}
+                            <td class="text-right">{{ prestation.tarif }} €</td>
+                        {% endif %}
+                        <td>{{ prestation.pivot.quantite }}</td>
+                        {% if not box.kdo %}
+                            <td class="text-right">{{ prestation.tarif * prestation.pivot.quantite }} €</td>
+                        {% endif %}
+                    </tr>
                 {% endfor %}
             </tbody>
             {% if not box.kdo %}
-            <tfoot>
-                <tr class="prestation-row">
-                    <td><h3>Montant total</h3></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ box.montant }} €</td>
-                </tr>
-            </tfoot>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Total:</td>
+                        <td class="text-right">{{ box.montant }} €</td>
+                    </tr>
+                </tfoot>
             {% endif %}
         </table>
-    </section>
-</div>
+        
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            .invoice-box {
+                width: clamp(300px, 80%, 800px);
+                margin: 10px auto; 
+                padding: 30px;
+                border: 1px solid #eee;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+                font-size: 16px;
+                line-height: 1.5;
+            }
+            .invoice-table {
+                width: 100%;
+                border-collapse: collapse; 
+            }
+            .invoice-table th,
+            .invoice-table td {
+                padding: 10px;
+                vertical-align: top; 
+            }
+            .invoice-table th {
+                background-color: #eee;
+                border-bottom: 1px solid #ddd;
+                font-weight: bold;
+            }
+            .text-right {
+                text-align: right;
+            }
+        </style>
+    </div>
+    <button class="bouton" onclick="printBoxContainer()">Imprimer la box</button>
 
-<script>
-function copyUrl(url) {
+    <script>
+        function printBoxContainer() {
+            // Récupérer le contenu de la box
+            var printContents = document.querySelector('.invoice-box').outerHTML;
 
-  var tempInput = document.createElement("input");
-  tempInput.value = url;
-  document.body.appendChild(tempInput);
+            // Créer un iframe pour imprimer le contenu
+            var printIframe = document.createElement('iframe');
+            printIframe.style.display = 'none';
+            document.body.appendChild(printIframe);
 
+            // Injecter le contenu dans l'iframe
+            printIframe.contentWindow.document.write('<html><head><title>Print</title></head><body>');
+            printIframe.contentWindow.document.write(printContents);
+            printIframe.contentWindow.document.write('</body></html>');
 
-  tempInput.select();
-  tempInput.setSelectionRange(0, 99999); 
+            // Fermer le document
+            printIframe.contentWindow.document.close();
 
+            // Imprimer le document
+            printIframe.contentWindow.print();
 
-  document.execCommand("copy");
-
-
-  document.body.removeChild(tempInput);
-
-  alert("Copied the URL: " + url);
-}
-</script>
-
+            // Supprimer l'iframe
+            printIframe.parentNode.removeChild(printIframe);
+        }
+    </script>
 {% endblock %}

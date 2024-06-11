@@ -17,6 +17,22 @@
             {% if estPredefinie %}
                 <a class="bouton" href="{{ url_for('boxCreate') ~ "?idPredefinie=" ~ box.id }}">Créer une box à partir de celle-ci</a>
                 <a class="bouton" href="{{ url_for('boxsPredefinies') }}">Retour aux boxs prédéfinies</a>
+            {% else %}
+                <a class="bouton" href="{{ url_for('boxs') }}">Retour aux boxs</a>
+                {% if box.statut == 1 %}
+                    <form method="post" action="{{ url_for('definirCourante', {'id': box.id}) }}">
+                        <button class="bouton" type="submit">Définir comme box courante</button>
+                    </form>
+                {% endif %}
+                {% if box.statut == 3 and box.token == "" %}
+                    <form method="post" action="{{ url_for('generateUrlBox', {'id': box.id}) }}">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <button class="bouton" type="submit">Generate URL</button>
+                    </form>
+                {% endif %}
+                {% if box.statut == 3 and box.token != "" %}
+                    <a class="bouton" onclick="copyUrl('{{ url }}')">Copier URL</a>
+                {% endif %}
             {% endif %}
         </div>
     </section>
@@ -51,4 +67,26 @@
         </table>
     </section>
 </div>
+
+<script>
+function copyUrl(url) {
+    navigator.clipboard.writeText(url);
+    callNotification("URL copiée : "+url);
+}
+
+function callNotification(message) {
+    var notification = document.createElement("div");
+    notification.innerText = message;
+    notification.classList.add("notification");
+    document.body.appendChild(notification);
+
+    setTimeout(function() {
+        notification.style.opacity = '0';
+        setTimeout(function() {
+            document.body.removeChild(notification);
+        }, 1500);
+    }, 2000);
+}
+</script>
+
 {% endblock %}

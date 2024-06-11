@@ -17,7 +17,7 @@ use gift\appli\core\services\autorisation\AutorisationService;
 use gift\appli\app\provider\authentification\AuthentificationProviderInterface;
 use gift\appli\app\provider\authentification\AuthentificationProvider;
 
-class PostCategorieCreateAction extends \gift\appli\app\actions\AbstractAction
+class PostPrestationUpdateAction extends \gift\appli\app\actions\AbstractAction
 {
     private CatalogueServiceInterface $catalogueService;
     private AutorisationServiceInterface $autorisationService;
@@ -33,7 +33,7 @@ class PostCategorieCreateAction extends \gift\appli\app\actions\AbstractAction
     {
         $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_CATALOGUE);
         if(!$granted){
-            return $response->withStatus(302)->withHeader('Location', "/");
+            return $response->withStatus(302)->withHeader('Location', "/prestations/?id=".$args['id']);
         }
 
         $data = $request->getParsedBody();
@@ -53,17 +53,21 @@ class PostCategorieCreateAction extends \gift\appli\app\actions\AbstractAction
 
         /* Filtre des données */
         $formData = [
+            'id' => $args['id'],
             'libelle' => htmlspecialchars($data['libelle'], ENT_QUOTES, 'UTF-8'),
-            'description' => htmlspecialchars($data['description'], ENT_QUOTES, 'UTF-8')
+            'description' => htmlspecialchars($data['description'], ENT_QUOTES, 'UTF-8'),
+            'unite' => htmlspecialchars($data['unite'], ENT_QUOTES, 'UTF-8'),
+            'tarif' => intval(htmlspecialchars($data['tarif'], ENT_QUOTES, 'UTF-8')),
+            'img' => htmlspecialchars($data['img'], ENT_QUOTES, 'UTF-8'),
+            'cat_id' => intval(htmlspecialchars($data['categorie'], ENT_QUOTES, 'UTF-8')),
         ];
 
         try {
-            $categorie = $this->catalogueService->createCategorie($formData);
+            $this->catalogueService->updatePrestation($formData);
         } catch (CatalogueServiceNotFoundException $e) {
-            throw new HttpBadRequestException($request, 'Création de la catégorie échouée');
+            throw new HttpBadRequestException($request, $e->getMessage());
         }
-        
-        $url = "/categories/$categorie/";
-        return $response->withStatus(302)->withHeader('Location', $url);
+
+        return $response->withStatus(302)->withHeader('Location', "/prestations/?id=".$args['id']);
     }
 }

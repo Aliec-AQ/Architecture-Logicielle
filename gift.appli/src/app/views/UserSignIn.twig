@@ -1,6 +1,6 @@
 {% extends 'index.twig' %}
 {% block content %}
-<h1>Sign In</h1>
+<h1>Connexion</h1>
 <form class="displayCard" action="" method="post">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     <label for="email">Email</label>
@@ -13,8 +13,8 @@
         <p class="error">&#9888; {{ error }}</p>
     {% endif %}
 
-    <button type="submit" class="bouton">Sign In</button>
+    <button type="submit" class="bouton">Se connecter</button>
 
 </form>
-<a href="{{ url_for('register') }}">Register</a>
+<a href="{{ url_for('register') }}">Créer un compte</a>
 {% endblock %}

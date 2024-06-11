@@ -32,7 +32,7 @@ class GetBoxByIdAction extends \gift\appli\app\actions\AbstractAction
         }
 
         if(isset($_SESSION['giftBox_box_courante']) && $_SESSION['giftBox_box_courante'] == $id){
-            return $response->withHeader('Location', '/box/courante')->withStatus(302);
+            return $response->withHeader('Location', '/boxs/courante')->withStatus(302);
         }
 
         try{
@@ -47,7 +47,11 @@ class GetBoxByIdAction extends \gift\appli\app\actions\AbstractAction
             return $response->withStatus(500)->withHeader('Location', "/error");
         }
 
+        if(!$isPredefinie){
+            $uri= $request->getUri();
+            $url = $uri->getScheme() . "://". $uri->getHost(). ":". $uri->getPort() . "/boxs/url/?box=".$box['token'];
+        }
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, ['box' => $box, 'estPredefinie' => $isPredefinie]);
+        return $view->render($response, $this->template, ['box' => $box, 'estPredefinie' => $isPredefinie, 'url'=> $url ?? null]);
     }
 }

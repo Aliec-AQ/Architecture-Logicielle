@@ -43,9 +43,4 @@
 # to do
 
 ### autres
-- les modifications d'une prestation
-- imprimer box
-- bouton pour definir une box comme box courante 
-- page payer 
-- changer les noms de route et certains attribut/methode 
-- style erreur
+- fix truc token erreur ex: dzqdzqdz box maybe url encode

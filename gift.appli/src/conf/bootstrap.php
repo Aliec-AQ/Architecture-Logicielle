@@ -24,7 +24,7 @@ $twig = \Slim\Views\Twig::create(__DIR__ . '/../app/views', ['cache' => false]);
 $app->add(\Slim\Views\TwigMiddleware::create($app, $twig)); 
 
 $errorMiddleware = $app->addErrorMiddleware(true, false, false);
-/*
+
 $errorMiddleware->setDefaultErrorHandler(
     function (Request $request, Throwable $exception, bool $displayErrorDetails, bool $logErrors, bool $logErrorDetails) use ($twig) {
         $statusCode = $exception->getCode();
@@ -37,7 +37,7 @@ $errorMiddleware->setDefaultErrorHandler(
             'errorMessage' => $errorMessage,
         ]);
     }
-);*/
+);
 
 $app=(require_once __DIR__ . '/routes.php')($app);
 

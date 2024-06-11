@@ -139,7 +139,7 @@ class BoxService implements BoxServiceInterface {
 
             $box = Box::findOrFail($boxId);
             
-            if ($box->statut != 1) {
+            if ($box->statut != Box::EN_COURS) {
                 throw new BoxServiceNotFoundException("Impossible d'ajouter une prestation à un coffret non modifiable.");
             }
 
@@ -179,6 +179,10 @@ class BoxService implements BoxServiceInterface {
             $box = Box::findOrFail($boxId);
             $prestation = Prestation::findOrFail($prestationId);
             
+            if ($box->statut != Box::EN_COURS) {
+                throw new BoxServiceNotFoundException("Impossible de supprimer une prestation d'un coffret non modifiable.");
+            }
+
             // check si la prestation est déjà dans le coffret
             $existingPrestation = $box->prestations()->where('presta_id', $prestationId)->first();
 
@@ -207,8 +211,14 @@ class BoxService implements BoxServiceInterface {
             }
 
             $box = Box::findOrFail($boxId);
+            
+            if ($box->statut != Box::EN_COURS) {
+                throw new BoxServiceNotFoundException("Impossible de modifier une prestation d'un coffret non modifiable.");
+            }
+            
             $prestation = Prestation::findOrFail($prestationId);
             
+
             // check si la prestation est déjà dans le coffret
             $existingPrestation = $box->prestations()->where('presta_id', $prestationId)->first();
 

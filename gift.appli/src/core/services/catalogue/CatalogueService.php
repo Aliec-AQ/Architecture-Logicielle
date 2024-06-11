@@ -156,7 +156,15 @@ class CatalogueService implements CatalogueServiceInterface {
     public function updatePrestation(array $data): void {
         try {
             $prestation = Prestation::findOrFail($data['id']);
-            $prestation->update($data);
+
+            $prestation->libelle = $data['libelle'];
+            $prestation->description = $data['description'];
+            $prestation->unite = $data['unite'];
+            $prestation->tarif = $data['tarif'];
+            $prestation->img = $data['img'];
+            $prestation->cat_id = $data['cat_id'];
+
+            $prestation->save();
         } catch (\Exception $e) {
             throw new CatalogueServiceNotFoundException("Échec de la modification de la prestation.");
         }

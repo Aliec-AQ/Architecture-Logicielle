@@ -32,10 +32,11 @@ class PostUpdateQuantiteBoxAction extends \gift\appli\app\actions\AbstractAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody();
-        
-        $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $data['box_id']);
+        $boxId = $args['id'];
+
+        $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $boxId);
         if(!$granted){
-            return $response->withStatus(302)->withHeader('Location', "/box/courante");
+            return $response->withStatus(302)->withHeader('Location', "/boxs/courante");
         }
 
         /* Récupération du token */
@@ -52,18 +53,18 @@ class PostUpdateQuantiteBoxAction extends \gift\appli\app\actions\AbstractAction
         }
 
         /* Vérification paramètres */
-        $id = $args['id'];
+        $prestaId = $args['id-presta'];
 
-        if (is_null($id)) {
-            throw new HttpBadRequestException($request, "Paramètre absent dans l'URL");
+        if (is_null($prestaId)) {
+            throw new HttpBadRequestException($request, "Identifiant de la prestation manquant");
         }
 
         try {
-            $box = $this->boxservice->updateQuantitePrestationToBox($id, $data['box_id'], $data['quantite']);
+            $box = $this->boxservice->updateQuantitePrestationToBox($prestaId, $boxId, $data['quantite']);
         } catch (BoxServiceNotFoundException $e) {
             throw new HttpBadRequestException($request, 'Pas possible de modifier la quantité de la prestation dans la box');
         }
 
-        return $response->withStatus(302)->withHeader('Location', "/box/courante/");
+        return $response->withStatus(302)->withHeader('Location', "/boxs/courante/");
     }
 }

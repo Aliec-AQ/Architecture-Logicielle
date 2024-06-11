@@ -11,6 +11,7 @@ Mettre le css qui est en relation avec les formulaires dans ce fichier.
     border: none;
     border-radius: 5px;
     text-decoration: none;
+    text-align: center;
     font-size: 16px;
     cursor: pointer;
   }
@@ -63,4 +64,24 @@ Mettre le css qui est en relation avec les formulaires dans ce fichier.
 .button-box:hover {
     background-color: red;
     color: white;
+}
+
+.notification {
+    position: fixed;
+    top: 5px;
+    right: 0px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    transition: opacity 1.5s; 
+  }
+
+form .bouton{
+  width: 100%;
+}
+
+#description {
+  width: 500px;
+  height: 75px;
+  resize: none;
 }

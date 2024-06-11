@@ -34,6 +34,9 @@
                 <button class="bouton" type="submit">Generate URL</button>
             </form>
             {% endif %}
+            {% if box.statut == 3 and box.token != "" %}
+                <a class="bouton" onclick="copyUrl('{{ url }}')">Copier URL</a>
+            {% endif %}
         </div>
     </section>
     <section class="box-prestations">
@@ -52,8 +55,7 @@
                     <td>
                     <div class="splinter_cell">
                         {% if box.statut <= 1 %}
-                        <form method="post" action="{{ url_for('removePrestationToBox', {'id': prestation.id}) }}">
-                            <input type="hidden" name="box_id" value="{{ box.id }}">
+                        <form method="post" action="{{ url_for('removePrestationToBox', {'id': box.id, 'id-presta': prestation.id}) }}">
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                             <button class="button-box" type="submit">X</button>
                         </form>
@@ -67,8 +69,8 @@
                     <td>
                         <div class="splinter_cell">
                             {% if box.statut <= 1 %}
-                            <form method="post" action="{{ url_for('updateQuantiteToBox', {'id': prestation.id}) }}">
-                                <input type="hidden" name="box_id" value="{{ box.id }}">
+                            <form method="post" action="{{ url_for('updateQuantiteToBox', {'id': box.id, 'id-presta': prestation.id}) }}">
+
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                                 <input type="number" name="quantite" value="{{ prestation.pivot.quantite }}" min="0">
                                 <button class="button-box" type="submit">&#10227;</button>
@@ -95,4 +97,26 @@
         </table>
     </section>
 </div>
+
+<script>
+function copyUrl(url) {
+    navigator.clipboard.writeText(url);
+    callNotification("URL copiée : "+url);
+}
+
+function callNotification(message) {
+    var notification = document.createElement("div");
+    notification.innerText = message;
+    notification.classList.add("notification");
+    document.body.appendChild(notification);
+
+    setTimeout(function() {
+        notification.style.opacity = '0';
+        setTimeout(function() {
+            document.body.removeChild(notification);
+        }, 1500);
+    }, 2000);
+}
+</script>
+
 {% endblock %}
