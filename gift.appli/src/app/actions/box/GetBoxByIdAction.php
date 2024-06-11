@@ -49,7 +49,7 @@ class GetBoxByIdAction extends \gift\appli\app\actions\AbstractAction
 
         if(!$isPredefinie){
             $uri= $request->getUri();
-            $url = $uri->getScheme() . "://". $uri->getHost(). ":". $uri->getPort() . "/boxs/url/?box=".$box['token'];
+            $url = $uri->getScheme() . "://". $uri->getHost(). ":". $uri->getPort() . "/boxs/url/?box=".urlencode($box['token']);
         }
         $view = Twig::fromRequest($request);
         return $view->render($response, $this->template, ['box' => $box, 'estPredefinie' => $isPredefinie, 'url'=> $url ?? null]);
