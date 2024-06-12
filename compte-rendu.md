@@ -38,9 +38,3 @@
 - Amaury : 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
 - Kévin  : 3, 4, 6, 7, 17, 18, 19, 20, 21, 22, 23, 24 
 - Maxime : 2, 3, 4, 8, 17 
-
-
-# to do
-
-### autres
-- fix truc token erreur ex: dzqdzqdz box maybe url encode
