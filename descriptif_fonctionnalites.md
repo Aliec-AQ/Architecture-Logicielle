@@ -67,6 +67,41 @@ Le premier est d'y accéder par la route "box/courante", un autre est le bouton 
 Une fois sur la page, toutes les informations du coffret s'affichent,
 ainsi que les prestations qui le composent.
 
+## Validation d'un coffret
+Pour valider un coffret, il faut d'abord aller sur la page de détail de la boite à valider,
+ensuite, il faut cliquer sur le bouton "Valider" sur la page de détail de la boite.
+Pour valider la boite, il faut au moins deux prestations de deux catégories différentes dans le coffret. 
+Une fois cliqué, le coffret est validé et toute modification de prestations devient impossible.
+Vous aurez alors accès au bouton "Payer la box" pour payer le coffret.
+
+## Paiement d'un coffret
+Pour payer un coffret, il faut d'abord aller sur la page de détail de la boite,
+si vous ne l'avez pas déjà fait, il faudra valider la boite pour pouvoir payer.
+Une fois sur la page, il faudra cliquer sur le bouton "Payer la box" pour payer.
+
+## Suppression d'une prestation d'un coffret
+Pour supprimer une prestation d'un coffret, il faut d'abord aller sur la page de détail de la boite,
+pour cela, il faut cliquer sur le bouton "Box Courante" dans le menu.
+Pour supprimer une prestation, il suffit de cliquer sur le bouton "X" à côté du nom de la prestation à supprimer.
+
+## Modification d'une prestation d'un coffret
+Pour modifier une prestation d'un coffret, il faut d'abord aller sur la page de détail de la boite,
+pour cela, il faut cliquer sur le bouton "Box Courante" dans le menu.
+Une fois sur la page, vous pourrez modifier les quantités des prestations en modifiant le nombre dans le champ de texte
+et en cliquant sur le bouton d'actualisation (sous la forme d'une flèche) pour valider la modification.
+
+## génération de l'URL d'accès
+Pour générer l'URL d'accès à un coffret, il faut d'abord aller sur la page de détail de la boite,
+Puis il faut s'assurer que la boite est validée et payée.
+Une fois sur la page, il faudra cliquer sur le bouton "Générer l'URL d'accès" pour générer l'URL.
+Vous serrez alors redirigé vers une page où vous pourrez voir l'URL générée.
+
+## Accès à un coffret 
+Pour accéder à un coffret, il faut d'abord avoir l'URL d'accès à la boite,
+ensuite, il faut coller l'URL dans la barre de recherche de votre navigateur.
+Une fois sur la page, vous pourrez voir toutes les informations de la boite,
+ainsi que les prestations qui la composent.
+
 ## Sign in
 Pour se connecter, l'on peut cliquer sur le bouton "Connexion" dans le menu.
 Une fois sur la page, il faudra renseigner son adresse mail et son mot de passe.
@@ -81,6 +116,13 @@ Une fois sur la page, il faudra cliquer sur le bouton "Register" pour accéder a
 Il faudra ensuite renseigner son adresse mail et son mot de passe deux fois.
 Une fois le formulaire rempli, il faudra cliquer sur le bouton "Register" pour valider l'inscription.
 
+## Accèder à ces coffrets
+Pour accéder à ces coffrets, il faut d'abord être connecté,
+ensuite, il faut cliquer sur le bouton "Mes coffrets" dans le menu.
+Une fois sur la page, vous pourrez voir tous les coffrets que vous avez créés.
+Ou alors, il est possible d'ajouter "/boxs/liste/" à la fin de l'URL d'acceuil pour accéder à la page directement.
+
+
 ## Afficher les box prédéfinies
 Pour afficher les box prédéfinies, il y a 2 moyens,
 le premier est d'y accéder par la route "/boxsPredefinies" et
@@ -88,6 +130,16 @@ l'autre moyen est de cliquer sur l'option "box prédéfinies" du menu de l'appli
 Toutes les box prédéfinies vont alors s'afficher de façon identique avec nom, prix.
 Vous pouvez cliquer sur une box pour en afficher le détail.
 
+## créer un coffret prérempli à partir d'une box
+Pour créer un coffret à partir d'une box prédéfinie, il faut d'abord aller sur la page de détail de la box prédéfinie,
+pour cela, il faut cliquer sur la box souhaitée.
+Une fois sur la page, il faudra cliquer sur le bouton "Créer une box à partir de cette box" pour créer la box.
+Vous serez alors redirigé vers la page de création d'une nouvelle boite.
+Il faudra ensuite créer la boite normalement.
+
+## créer un coffret prérempli à partir d'une box affichée
+Pour créer une box à partir d'une box prédéfinie, il faut aller créer une box normalement,
+puis il faut selectionner une box prédéfinie dans la liste déroulante.
 
 # API :
 
