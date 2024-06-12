@@ -11,6 +11,7 @@ class AutorisationService implements AutorisationServiceInterface{
     const MODIF_BOX = 1;
     const CREATE_BOX = 2;
     const MODIF_CATALOGUE = 3;
+    const PAY_BOX = 4;
 
     public function isGranted(?string $id, ?int $action, ?string $box_id = null): bool {     
         if(is_null($id) ||is_null($action)){
@@ -24,6 +25,8 @@ class AutorisationService implements AutorisationServiceInterface{
                 return $this->isRegistered($id) || $this->isAdmin($id);
             case self::MODIF_CATALOGUE:
                 return $this->isAdmin($id);
+            case self::PAY_BOX:
+                return $this->isOwner($id, $box_id) || $this->isAdmin($id);
             default:
                 return false;
         }

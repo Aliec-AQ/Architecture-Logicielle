@@ -12,6 +12,7 @@ use Slim\Views\Twig;
 use gift\appli\core\services\box\BoxServiceInterface;
 use gift\appli\core\services\box\BoxService;
 use gift\appli\core\services\box\BoxServiceNotFoundException;
+use gift\appli\app\utils\CsrfService;
 
 class GetBoxByIdAction extends \gift\appli\app\actions\AbstractAction
 {
@@ -51,7 +52,10 @@ class GetBoxByIdAction extends \gift\appli\app\actions\AbstractAction
             $uri= $request->getUri();
             $url = $uri->getScheme() . "://". $uri->getHost(). ":". $uri->getPort() . "/boxs/url/?box=".urlencode($box['token']);
         }
+
+        $token = CsrfService::generate();
+
         $view = Twig::fromRequest($request);
-        return $view->render($response, $this->template, ['box' => $box, 'estPredefinie' => $isPredefinie, 'url'=> $url ?? null]);
+        return $view->render($response, $this->template, ['box' => $box, 'estPredefinie' => $isPredefinie, 'url'=> $url ?? null, 'csrf_token' => $token]);
     }
 }

@@ -40,7 +40,7 @@ class PostPayBoxAction extends \gift\appli\app\actions\AbstractAction
 
         $data = $request->getParsedBody();
         
-        $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $id);
+        $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::PAY_BOX, $id);
         if(!$granted){
             return $response->withStatus(302)->withHeader('Location', "/boxs/courante");
         }

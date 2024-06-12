@@ -10,22 +10,22 @@ use Slim\Views\Twig;
 use gift\appli\core\domain\entities\Box;
 use gift\appli\core\services\box\BoxService;
 use gift\appli\core\services\box\BoxServiceNotFoundException;
-use gift\appli\core\services\authorization\AuthorizationServiceInterface;
-use gift\appli\core\services\authorization\AuthorizationService;
-use gift\appli\app\provider\authentication\AuthenticationProviderInterface;
-use gift\appli\app\provider\authentication\AuthenticationProvider;
+use gift\appli\core\services\autorisation\AutorisationServiceInterface;
+use gift\appli\core\services\autorisation\AutorisationService;
+use gift\appli\app\provider\authentification\AuthentificationProviderInterface;
+use gift\appli\app\provider\authentification\AuthentificationProvider;
 
 class PostGenerateBoxUrlAction extends \gift\appli\app\actions\AbstractAction 
 {
     private BoxService $boxService;
-    private AuthenticationProviderInterface $provider;
-    private AuthorizationServiceInterface $authorizationService;
+    private AuthentificationProviderInterface $provider;
+    private AutorisationServiceInterface $autorisationService;
 
     public function __construct()
     {
         $this->boxService = new BoxService();
-        $this->provider = new AuthenticationProvider();
-        $this->authorizationService = new AuthorizationService();
+        $this->provider = new AuthentificationProvider();
+        $this->autorisationService = new AutorisationService();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
@@ -39,7 +39,7 @@ class PostGenerateBoxUrlAction extends \gift\appli\app\actions\AbstractAction
 
         $data = $request->getParsedBody();
 
-        $granted = $this->authorizationService->isGranted($this->provider->getSignedInUser()['id'], AuthorizationService::MODIF_BOX, $id);
+        $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], AutorisationService::PAY_BOX, $id);
         if (!$granted) {
             return $response->withStatus(302)->withHeader('Location', "/boxs/courante");
         }
@@ -63,7 +63,8 @@ class PostGenerateBoxUrlAction extends \gift\appli\app\actions\AbstractAction
             throw new HttpBadRequestException($request, 'Error generating the box URL: ' . $e->getMessage());
         }
 
-        $url = "/boxs/" . $box->token . "/url/";
+        $uri= $request->getUri();
+        $url = $uri->getScheme() . "://". $uri->getHost(). ":". $uri->getPort() . "/boxs/url/?box=".urlencode($box['token']);
 
         // Redirect the user to the URL
         return $response->withStatus(302)->withHeader('Location', $url);
