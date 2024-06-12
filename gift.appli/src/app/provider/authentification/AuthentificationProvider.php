@@ -32,7 +32,9 @@ class AuthentificationProvider implements AuthentificationProviderInterface{
     }
 
     public function signOut() {
-        unset($_SESSION['gift_box_user']);
+        if(isset($_SESSION['gift_box_user'])){
+            unset($_SESSION['gift_box_user']);
+        }
     }
 
     public function isSignedIn(): bool {

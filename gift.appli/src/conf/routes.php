@@ -35,6 +35,7 @@ use gift\appli\app\actions\user\GetRegisterFormAction;
 use gift\appli\app\actions\user\PostRegisterFormAction;
 use gift\appli\app\actions\user\GetSignInAction;
 use gift\appli\app\actions\user\PostSignInAction;
+use \gift\appli\app\actions\user\GetSignOutAction;
 
 return function( App $app): App {
 
@@ -81,6 +82,7 @@ return function( App $app): App {
 
     $app->get('/register[/]', GetRegisterFormAction::class)->setName('register');
     $app->get('/sign-in[/]', GetSignInAction::class)->setName('signIn');
+    $app->get('/sign-out[/]', GetSignOutAction::class)->setName('signOut');
 
     $app->post('/sign-in[/]', PostSignInAction::class)->setName('signInPost');
     $app->post('/register[/]', PostRegisterFormAction::class)->setName('registerPost');
