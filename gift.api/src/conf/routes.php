@@ -8,6 +8,7 @@ use gift\api\app\actions\catalogue\GetListePrestationsAction;
 use gift\api\app\actions\catalogue\GetPrestationAction;
 use gift\api\app\actions\catalogue\GetPrestationsCategorieAction;
 use Slim\App;
+use Slim\Exception\HttpNotFoundException;
 
 
 return function( App $app): App {
@@ -21,6 +22,10 @@ return function( App $app): App {
 
     $app->get('/api/categories/{id}/prestations[/]', GetPrestationsCategorieAction::class)->setName('prestationsCategorie');
     $app->get('/api/boxes/{id}[/]', GetBoxByIdAction::class)->setName('boxById');
+
+    $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
+        throw new HttpNotFoundException($request);
+    });
 
     return $app;
 };
