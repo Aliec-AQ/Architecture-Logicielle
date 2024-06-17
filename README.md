@@ -4,7 +4,8 @@
 ## Etique Kevin - Etique Kevin
 ## Koler Maxime - YxallaxY
 
-## installation : 
+***
+### installation : 
 [Download giftbox.zip](https://github.com/Aliec-AQ/Architecture-Logicielle/blob/main/installation_giftbox.zip)
 
 ***
