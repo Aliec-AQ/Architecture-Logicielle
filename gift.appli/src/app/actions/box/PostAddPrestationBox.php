@@ -31,6 +31,10 @@ class PostAddPrestationBox extends \gift\appli\app\actions\AbstractAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
+        if(!isset($_SESSION['giftBox_box_courante'])){
+            return $response->withStatus(302)->withHeader('Location', "/boxs/create");
+        }
+
         $granted = $this->autorisationService->isGranted($this->provider->getSignedInUser()['id'], $this->autorisationService::MODIF_BOX, $_SESSION['giftBox_box_courante']);
         if(!$granted){
             return $response->withStatus(302)->withHeader('Location', "/boxs/create");
